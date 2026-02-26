@@ -7,8 +7,8 @@ const Details = () => {
   const { id } = useParams();
 
   const getProductById = async () => {
-    const res = await axios.get(`https://dummyjson.com/products/${id}`);
-    return res.data;
+    const res = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
+    return res.data.data;
   };
 
   const { data, isLoading, isError, error } = useQuery({
@@ -57,7 +57,7 @@ const Details = () => {
           </p>
 
           <p className="text-gray-500 dark:text-gray-400 text-sm">
-            Category: {data.category}
+            Category: {data.category.name}
           </p>
 
           <button

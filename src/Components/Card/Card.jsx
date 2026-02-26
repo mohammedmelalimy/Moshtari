@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { addProductToCart } from "../../store/thunk/addToCart";
 const Card = ({ product }) => {
   const dispatch=useDispatch();
@@ -20,12 +21,12 @@ const Card = ({ product }) => {
         </div>
 
         {/* Product Info */}
-        <div className="p-4 flex flex-col gap-1">
-          <h2 className="font-semibold text-lg text-gray-800 dark:text-gray-100 truncate">
+        <div className="flex flex-col gap-1">
+          <h2 className="font-semibold text-lg text-gray-800 dark:text-gray-100 truncate px-2">
             {product.title}
           </h2>
-          <div className="flex justify-between  bg-black dark:bg-slate-500 p-2 rounded-sm">
-            <h4 className="text-white dark:text-black text-sm">{product.category.name}</h4>
+          <div className="flex justify-between  bg-black dark:bg-slate-700 p-2 rounded-sm">
+            <h4 className="text-white dark:text-white font-bold text-sm">{product.category.name}</h4>
             <p className="text-green-600 dark:text-green-400 font-bold">${product.price}</p>
           </div>
         </div>
@@ -33,7 +34,7 @@ const Card = ({ product }) => {
 
       {/* Add to Cart Button */}
       <button
-        onClick={dispatch(()=>{addProductToCart(product.id)})}
+        onClick={() => {dispatch(addProductToCart(product.id)) ; toast("Product added to cart")}}
         className="absolute top-3 right-3 bg-green-600 dark:bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300 hover:bg-green-700 dark:hover:bg-green-600 shadow-md"
       >
         +

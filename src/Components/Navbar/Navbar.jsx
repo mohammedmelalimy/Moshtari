@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white
     sticky top-0 z-50 transition-colors duration-300">
-      <div className="container mx-auto flex items-center justify-between py-4 px-4 md:px-2">
+      <div className="container mx-auto flex items-center justify-between py-5 px-4 md:px-2">
 
         {/* Left: Logo + Desktop Links */}
         <div className="flex items-center gap-4 md:gap-16">
