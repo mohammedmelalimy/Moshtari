@@ -1,8 +1,10 @@
+import MainProducts from "../Products/MainProducts";
 import Products from "../Products/Products";
 import CategoriesSlider from "./CategoriesSlider";
 import HomeSlider from "./HomeSlider";
 
 const Home = () => {
+  const token = localStorage.getItem("token");
   return (
     <div className="bg-gray-100 dark:bg-gray-900 dark:text-white min-h-screen">
       
@@ -23,7 +25,7 @@ const Home = () => {
 
       {/* Products Section */}
       <div className="px-4 lg:px-10 pb-10">
-        <Products />
+        {token ? <Products /> : <MainProducts />}
       </div>
 
     </div>

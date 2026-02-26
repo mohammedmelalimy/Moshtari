@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addProductToCart } from "../thunk/addToCart";
 import { fetchUserCart } from "../thunk/userCart";
 
 const initialState = {
@@ -9,29 +10,30 @@ const initialState = {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {
-    addToCart(state, action) {
-      if (state.cart?.data) {
-        state.cart.data.products.push(action.payload);
-        state.cart.data.totalCartPrice += action.payload.price || 0;
-      }
-    },
-    clearCart(state) {
-      state.cart = {};
-    },
-  },
-
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserCart.pending, () => {})
       
       .addCase(fetchUserCart.fulfilled, (state, action) => {
-        state.cart = action.payload;
+        state.cart = action.payload.data;
       })
 
       .addCase(fetchUserCart.rejected, (state, action) => {
         state.error = action.payload || "Failed to fetch cart";
+      })
+
+      // add to cart builder state cases 
+      .addCase(addProductToCart.pending, () => {})
+      
+      .addCase(addProductToCart.fulfilled, (state, action) => {
+        // state.cart = action.payload.data;
+        console.log('added')
+      })
+
+      .addCase(addProductToCart.rejected, (state, action) => {
+        state.error = action.payload || "Failed to fetch cart";
       });
+
   },
 });
 

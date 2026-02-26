@@ -1,8 +1,6 @@
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { addProductToCart } from "../../store/thunk/addToCart";
+import { toast } from "react-toastify";
 const Card = ({ product }) => {
-  const dispatch=useDispatch();
 
   return (
     <div className="relative border rounded-xl overflow-hidden shadow-md bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-transform transform hover:scale-105 hover:shadow-xl duration-300 group">
@@ -25,13 +23,13 @@ const Card = ({ product }) => {
             {product.title}
           </h2>
           <p className="text-green-600 dark:text-green-400 font-bold">${product.price}</p>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">{product.category.name}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">{product.category}</p>
         </div>
       </Link>
 
       {/* Add to Cart Button */}
       <button
-        onClick={dispatch(()=>{addProductToCart(product.id)})}
+        onClick={()=>toast("Join us! Login or create an account to continue 🎉")}
         className="absolute top-3 right-3 bg-green-600 dark:bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300 hover:bg-green-700 dark:hover:bg-green-600 shadow-md"
       >
         +
