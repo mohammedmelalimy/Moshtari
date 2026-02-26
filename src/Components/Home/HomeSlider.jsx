@@ -5,31 +5,42 @@ import Slide1 from "../../assets/slide-1.jpg";
 import Slide2 from "../../assets/slide-2.jpg";
 import Slide3 from "../../assets/slide-3.png";
 import Slide4 from "../../assets/slide-4.jpg";
+
 export default function HomeSlider() {
-  var settings = {
+  const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    fade: true, // Smooth fade transition
+    pauseOnHover: true,
+    adaptiveHeight: true,
   };
+
+  const slides = [Slide1, Slide2, Slide3, Slide4];
+
   return (
-    <div className="dark:bg-slate-900">
-      <Slider {...settings} className="container mx-auto py-5">
-        <div  className="w-full overflow-hidden rounded-lg">
-          <img src={Slide1} alt="slide 1" className="w-full object-cover"/>
-        </div>
-        <div className="w-full overflow-hidden rounded-lg">
-          <img src={Slide2} alt="slide-2" className="w-full object-cover"/>
-        </div>
-        <div className="w-full overflow-hidden rounded-lg">
-          <img src={Slide3} alt="slide-3" className="w-full object-cover"/>
-        </div>
-        <div className="w-full overflow-hidden rounded-lg">
-          <img src={Slide4} alt="slide-4" className="w-full object-cover"/>
-        </div>
-      </Slider>
+    <div className="dark:bg-slate-900 py-6">
+      <div className="container mx-auto">
+        <Slider {...settings}>
+          {slides.map((slide, index) => (
+            <div key={index} className="px-2">
+              <div className="relative w-full overflow-hidden rounded-xl shadow-lg hover:scale-105 transform transition duration-500">
+                <img
+                  src={slide}
+                  alt={`slide-${index + 1}`}
+                  className="w-full h-64 md:h-96 object-cover"
+                />
+                
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 }
