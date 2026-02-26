@@ -1,0 +1,25 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const fetchUserCart = createAsyncThunk(
+  "cart/fetchUserCart",
+  async (_, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token || localStorage.getItem("token");
+
+      const response = await axios.get(
+        "https://ecommerce.routemisr.com/api/v1/cart",
+        {
+          headers: {
+            token: token, // send token in headers like Postman
+          },
+        }
+      );
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);

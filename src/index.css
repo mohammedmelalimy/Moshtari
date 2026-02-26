@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+*{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+@custom-variant dark (&:where(.dark, .dark *));
+
+.active{
+  color: orangered;
+  text-decoration: underline;
+}
