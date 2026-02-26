@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
 import { login } from "../../store/slices/authSlice";
-import { fetchUserCart } from "../../store/thunk/cart";
+import { fetchUserCart } from "../../store/thunk/userCart";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -41,11 +42,14 @@ const LoginSubmit = async (values) => {
     // Fetch cart AFTER login
     dispatch(fetchUserCart());
 
+    // toast
+    toast.success("Login successful");
+    
     // Navigate after everything is ready
     navigate("/authUser");
   } catch (err) {
     console.log(err);
-    alert("Invalid email or password");
+    toast.error(err.response.data.message);
   } finally {
     setLoading(false);
   }

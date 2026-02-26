@@ -1,6 +1,7 @@
 import image1 from "../../assets/slide-2.jpg";
 import image2 from "../../assets/slide-3.png";
 import Products from "../Products/Products";
+import CategoriesSlider from "./CategoriesSlider";
 import HomeSlider from "./HomeSlider";
 
 const Home = () => {
@@ -34,7 +35,9 @@ const Home = () => {
         </div>
 
       </div>
-
+      <div>
+        <CategoriesSlider/>
+      </div>
       {/* Products Section */}
       <div className="px-4 lg:px-10 pb-10">
         <Products />

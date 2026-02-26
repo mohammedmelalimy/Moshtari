@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserCart } from "../thunk/cart";
+import { fetchUserCart } from "../thunk/userCart";
 
 const initialState = {
-  cart:{},        // will contain FULL responses
+  cart: {}, 
+  error: null
 };
 
 const cartSlice = createSlice({
@@ -10,29 +11,22 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart(state, action) {
-      // add new item to the FIRST element of the api response (data.products)
-      if (state.cart.length > 0) {
-        state.cart[0].data.products.push(action.payload);
-
-        // update total price
-        state.cart[0].data.totalCartPrice += action.payload.price || 0;
+      if (state.cart?.data) {
+        state.cart.data.products.push(action.payload);
+        state.cart.data.totalCartPrice += action.payload.price || 0;
       }
     },
-
     clearCart(state) {
-      state.cart = [];
+      state.cart = {};
     },
   },
 
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserCart.pending, () => {
-        return;
-      })
-
+      .addCase(fetchUserCart.pending, () => {})
+      
       .addCase(fetchUserCart.fulfilled, (state, action) => {
-        // FULL RESPONSE → push into array
-        state.cart = action.payload; 
+        state.cart = action.payload;
       })
 
       .addCase(fetchUserCart.rejected, (state, action) => {
