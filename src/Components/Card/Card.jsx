@@ -24,8 +24,10 @@ const Card = ({ product }) => {
           <h2 className="font-semibold text-lg text-gray-800 dark:text-gray-100 truncate">
             {product.title}
           </h2>
-          <p className="text-green-600 dark:text-green-400 font-bold">${product.price}</p>
-          <p className="text-gray-500 dark:text-gray-400 text-sm">{product.category.name}</p>
+          <div className="flex justify-between  bg-black dark:bg-slate-500 p-2 rounded-sm">
+            <h4 className="text-white dark:text-black text-sm">{product.category.name}</h4>
+            <p className="text-green-600 dark:text-green-400 font-bold">${product.price}</p>
+          </div>
         </div>
       </Link>
 

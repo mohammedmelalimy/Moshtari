@@ -1,3 +1,4 @@
+import Contact from "../Contact/Contact";
 import MainProducts from "../Products/MainProducts";
 import Products from "../Products/Products";
 import CategoriesSlider from "./CategoriesSlider";
@@ -8,18 +9,16 @@ const Home = () => {
   return (
     <div className="bg-gray-100 dark:bg-gray-900 dark:text-white min-h-screen">
       
-      {/* Slider + Side Images */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6 py-6 px-4 lg:px-10">
-        
+      {/* Slider Section */}
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6 py-3 px-4 lg:px-10">
         {/* Main Slider */}
-        <div className="flex-1 w-full lg:w-3/5">
+        <div className="flex-1 w-full lg:w-4/5">
           <HomeSlider />
         </div>
-        
       </div>
 
       {/* Categories Slider */}
-      <div className="px-4 lg:px-10 py-6">
+      <div className="px-4 lg:px-10 py-3">
         <CategoriesSlider />
       </div>
 
@@ -27,6 +26,9 @@ const Home = () => {
       <div className="px-4 lg:px-10 pb-10">
         {token ? <Products /> : <MainProducts />}
       </div>
+
+      {/* Contact Section */}
+      <Contact/>
 
     </div>
   );
