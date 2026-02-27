@@ -1,4 +1,4 @@
-import Contact from "../Contact/Contact";
+import Contact from "../../Components/Contact/Contact";
 import MainProducts from "../Products/MainProducts";
 import Products from "../Products/Products";
 import CategoriesSlider from "./CategoriesSlider";

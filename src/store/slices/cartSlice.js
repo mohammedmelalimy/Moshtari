@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { addProductToCart } from "../thunk/addToCart";
 import { fetchUserCart } from "../thunk/userCart";
 const initialState = {
-  cart: null, // or {} if you prefer
+  cart: {}, 
   loading: false,
   error: null,
 };

@@ -1,16 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Circles } from "react-loader-spinner";
-import MainCard from "../Card/MainCard";
-const MainProducts = () => {
+import Card from "../../Components/Card/Card";
+
+const Products = () => {
 
   const fetchProducts = async () => {
-    const res = await axios.get("https://dummyjson.com/products");
-    return res.data;
+    const res = await axios.get("https://ecommerce.routemisr.com/api/v1/products");
+    return res.data.data; // array of products
   };
 
   const { data = [], isLoading, isError, error } = useQuery({
-    queryKey: ["mainProducts"],
+    queryKey: ["products"],
     queryFn: fetchProducts,
   });
 
@@ -29,9 +30,9 @@ const MainProducts = () => {
   return (
     <div className="min-h-screen p-6 dark:bg-gray-900 dark:text-white">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {data.products.map((product) => (
+        {data.map((product) => (
           <div key={product.id}>
-            <MainCard product={product} />
+            <Card product={product} />
           </div>
         ))}
       </div>
@@ -39,4 +40,4 @@ const MainProducts = () => {
   );
 };
 
-export default MainProducts;
+export default Products;
