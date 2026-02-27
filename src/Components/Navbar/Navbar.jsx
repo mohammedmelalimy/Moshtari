@@ -11,6 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const theme = useSelector((state) => state.theme.isDark);
+  const numOfCartItem = useSelector((state) => state.cart.cart);
   
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -78,16 +79,24 @@ const Navbar = () => {
           >
             {theme ? "☀️" : "🌙"}
           </span>
-
-          {/* Desktop Right Links */}
-          {token && (
-            <div className="hidden md:flex items-center gap-4">
+                        {/* Cart Icon + Badge */}
               <Link
                 to="/authUser/cart"
-                className="text-lg font-semibold hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200"
+                className="relative flex items-center text-lg font-semibold hover:text-green-600 dark:hover:text-green-400 transition-colors duration-200"
               >
-                <ShoppingCart />
+                <ShoppingCart className="w-6 h-6" />
+
+                {/* Badge */}
+                {numOfCartItem.numOfCartItems > 0 && (
+                  <span className="absolute -top-2 -right-3 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    {numOfCartItem.numOfCartItems}
+                  </span>
+                )}
               </Link>
+          {token && (
+            <div className="hidden md:flex items-center gap-6">
+            
+              {/* Logout Button */}
               <button
                 onClick={handleLogout}
                 className="bg-red-600 dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-800 px-5 py-2 rounded-xl text-white font-bold transition-colors duration-300 shadow-md"
