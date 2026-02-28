@@ -1,4 +1,11 @@
+import { useSelector } from "react-redux";
+
 const Cart = () => {
+  
+  const allProducts = useSelector((state) => state.cart?.cart?.data?.products||[]);
+  
+  
+  
   return (
     <div className="overflow-x-auto container mx-auto">
       <table className="min-w-full border border-gray-200 dark:border-gray-700 text-sm text-left text-gray-700 dark:text-gray-200">
@@ -14,15 +21,16 @@ const Cart = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+          {allProducts.map((product) => (          
+          <tr className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800" key={product._id}>
             <td className="p-1 md:p-4">
               <img
-                src="/docs/images/products/apple-watch.png"
-                alt="Apple Watch"
+                src={product.product.imageCover}
+                alt={product.product.title}
                 className="w-12 sm:w-16 md:w-24 object-contain"
               />
             </td>
-            <td className="p-1 md:p-4 font-semibold">Apple Watch</td>
+            <td className="p-1 md:p-4 font-semibold">{product.product.title}</td>
             <td className="p-1 md:p-4">
               <div className="flex items-center gap-2">
                 <button className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
@@ -30,7 +38,7 @@ const Cart = () => {
                 </button>
                 <input
                   type="text"
-                  value={12}
+                  value={product.count}
                   className="w-12 text-center border-0 bg-transparent dark:text-gray-200 focus:outline-none"
                   readOnly
                 />
@@ -39,13 +47,13 @@ const Cart = () => {
                 </button>
               </div>
             </td>
-            <td className="p-1 md:p-4 font-semibold">$599</td>
+            <td className="p-1 md:p-4 font-semibold">${product.price}</td>
             <td className="p-1 md:p-4">
               <button className="text-red-600 dark:text-red-400 hover:underline">
                 Remove
               </button>
             </td>
-          </tr>
+          </tr>))}
         </tbody>
       </table>
     </div>

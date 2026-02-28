@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import router from "./routes";
 import { login } from "./store/slices/authSlice";
 import { fetchUserCart } from "./store/thunk/userCart";
+import { fetchUserWishlist } from "./store/thunk/Wishlist";
 const App = () => {
 
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const App = () => {
       }));
             // Fetch cart automatically
       dispatch(fetchUserCart());
+      dispatch(fetchUserWishlist());
     }
     if (isDark) {
       document.documentElement.classList.add("dark");

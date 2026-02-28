@@ -19,7 +19,7 @@ const Home = () => {
 
       {/* Categories Slider */}
       <div className="px-4 lg:px-10 py-3">
-        <CategoriesSlider />
+        {token ? <CategoriesSlider /> : null}
       </div>
 
       {/* Products Section */}
@@ -28,8 +28,7 @@ const Home = () => {
       </div>
 
       {/* Contact Section */}
-      <Contact/>
-
+      {token?null:<Contact/>}
     </div>
   );
 };

@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+
 const Contact = () => {
   const [result, setResult] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setResult("Sending...");
-try{
-    const formData = new FormData(e.target);
-    formData.append("access_key", import.meta.env.VITE_WEB3_KEY);
-    console.log("KEY:", import.meta.env.VITE_WEB3_KEY);
-    const res = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    }).then((res) => res.json());
+
+    try {
+      const formData = new FormData(e.target);
+      formData.append("access_key", import.meta.env.VITE_WEB3_KEY);
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      }).then((res) => res.json());
 
       if (res.success) {
         toast.success("Message sent successfully!");
@@ -28,51 +30,99 @@ try{
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  bg-gray-100 dark:bg-gray-900 dark:text-white p-6">
+    <div className="min-h-screen w-full flex items-center justify-center 
+      bg-gray-100 dark:bg-gray-900 dark:text-white px-6 py-10">
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl container mx-auto"
+        className="
+          w-full max-w-lg
+          bg-white dark:bg-gray-800
+          p-8 md:p-10
+          rounded-2xl shadow-xl
+          border border-gray-200 dark:border-gray-700
+          transition-all
+        "
       >
-        <h1 className="text-3xl font-bold mb-6 text-center">Contact Us</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center text-green-600 dark:text-green-400">
+          Contact Us
+        </h1>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Your Name</label>
+        {/* NAME */}
+        <div className="mb-5">
+          <label className="block mb-2 font-medium">Your Name</label>
           <input
             type="text"
             name="name"
             required
-            className="w-full px-4 py-2 rounded-lg border dark:border-gray-700 bg-gray-50 dark:bg-gray-700"
+            className="
+              w-full px-4 py-3
+              rounded-lg
+              border border-gray-300 dark:border-gray-600
+              bg-gray-50 dark:bg-gray-700
+              focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400
+              outline-none
+              transition
+            "
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium">Your Email</label>
+        {/* EMAIL */}
+        <div className="mb-5">
+          <label className="block mb-2 font-medium">Your Email</label>
           <input
             type="email"
             name="email"
             required
-            className="w-full px-4 py-2 rounded-lg border dark:border-gray-700 bg-gray-50 dark:bg-gray-700"
+            className="
+              w-full px-4 py-3
+              rounded-lg
+              border border-gray-300 dark:border-gray-600
+              bg-gray-50 dark:bg-gray-700
+              focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400
+              outline-none
+              transition
+            "
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block mb-1 font-medium w-full">Message</label>
+        {/* MESSAGE */}
+        <div className="mb-6">
+          <label className="block mb-2 font-medium">Message</label>
           <textarea
             name="message"
-            rows={4}
+            rows={5}
             required
-            className="w-full resize-none h-48 px-4 py-2 rounded-lg border dark:border-gray-700 bg-gray-50 dark:bg-gray-700"
-          />
+            className="
+              w-full resize-none
+              px-4 py-3
+              rounded-lg
+              border border-gray-300 dark:border-gray-600
+              bg-gray-50 dark:bg-gray-700
+              h-40
+              focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400
+              outline-none
+              transition
+            "
+          ></textarea>
         </div>
 
+        {/* BUTTON */}
         <button
           type="submit"
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold transition"
+          className="
+            w-full py-3
+            bg-green-600 hover:bg-green-700
+            text-white font-semibold
+            rounded-lg
+            shadow-md
+            transition
+          "
         >
           Send Message
         </button>
 
-        <p className="mt-4 text-center text-sm">{result}</p>
+        <p className="mt-4 text-center text-sm opacity-80">{result}</p>
       </form>
     </div>
   );
