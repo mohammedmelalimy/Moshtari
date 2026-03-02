@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 
 import { ChevronsDown, ChevronsUp } from "lucide-react";
 import Contact from "../../Components/Contact/Contact";
+import { Features } from "../../Components/Features/Features";
+import { Newsletter } from "../../Components/Newsletter/Newsletter";
 import Promo from "../../Components/Promo/Promo";
 import MainProducts from "../Products/MainProducts";
 import Products from "../Products/Products";
@@ -81,7 +83,12 @@ const Home = () => {
           <Promo />
         </div>
       ) : null}
-
+      
+      {/* Features Section */}
+      <Features />
+      
+      {/* NewsLetter Section */}
+      <Newsletter/>
       {/* Contact Section */}
       {!token && (
         <div data-aos="fade-left" className="px-4 lg:px-10 py-3 container mx-auto">
