@@ -1,3 +1,5 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
@@ -11,6 +13,12 @@ const Register = () => {
   const navigate = useNavigate();
   // Hide success message automatically after 2 seconds
   useEffect(() => {
+    AOS.init({
+    duration: 900,
+    easing: "ease-in-out",
+    once: true,
+    offset: 120,
+  });
     if (isRegister) {
       const timer = setTimeout(() => setIsRegister(false), 3000);
       return () => clearTimeout(timer);
@@ -71,7 +79,7 @@ const Register = () => {
   });
 
 return (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-10 px-4 transition-colors duration-300">
+  <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-10 px-4 transition-colors duration-300" data-aos="fade-right">
 
     {/* Success Message */}
     {isRegister && (

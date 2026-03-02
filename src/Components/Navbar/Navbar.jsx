@@ -1,4 +1,4 @@
-import { Menu, ShoppingBasket, ShoppingCart, X } from "lucide-react";
+import { Heart, Menu, Moon, ShoppingBasket, ShoppingCart, SunDim, X } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
@@ -12,20 +12,21 @@ const Navbar = () => {
   const token = useSelector((state) => state.auth.token);
   const theme = useSelector((state) => state.theme.isDark);
   const cartItems = useSelector((state) => state.cart.cart);
+  const wishItems = useSelector((state) => state.wishlist.wishlist);
 
   return (
-    <div className="
+    <div
+      className="
       sticky top-0 z-50
       bg-white dark:bg-gray-900
       text-gray-900 dark:text-white
       shadow-sm
       transition-colors duration-300
-    ">
+    "
+    >
       <div className="container mx-auto flex items-center justify-between py-4 px-4">
-
         {/* Left: Logo + Desktop Links */}
         <div className="flex items-center gap-10">
-
           {/* Logo */}
           <Link
             to={token ? "/authUser" : "/"}
@@ -38,49 +39,94 @@ const Navbar = () => {
           {/* Desktop Links */}
           {token && (
             <nav className="hidden md:flex gap-6 text-base font-medium">
-              <NavLink className="hover:text-green-600 dark:hover:text-green-400 transition" to="/authUser">Home</NavLink>
-              <NavLink className="hover:text-green-600 dark:hover:text-green-400 transition" to="/authUser/products">Products</NavLink>
-              <NavLink className="hover:text-green-600 dark:hover:text-green-400 transition" to="/authUser/categories">Categories</NavLink>
-              <NavLink className="hover:text-green-600 dark:hover:text-green-400 transition" to="/authUser/brands">Brands</NavLink>
+              <NavLink
+                className="hover:text-green-600 dark:hover:text-green-400 transition"
+                to="/authUser"
+              >
+                Home
+              </NavLink>
+              <NavLink
+                className="hover:text-green-600 dark:hover:text-green-400 transition"
+                to="/authUser/products"
+              >
+                Products
+              </NavLink>
+              <NavLink
+                className="hover:text-green-600 dark:hover:text-green-400 transition"
+                to="/authUser/categories"
+              >
+                Categories
+              </NavLink>
+              <NavLink
+                className="hover:text-green-600 dark:hover:text-green-400 transition"
+                to="/authUser/brands"
+              >
+                Brands
+              </NavLink>
             </nav>
           )}
         </div>
 
         {/* Right: Theme + Cart + Dropdown */}
         <div className="flex items-center gap-4">
-
           {/* Theme Switch */}
           <span
             onClick={() => dispatch(toggleTheme())}
             className="cursor-pointer text-xl hover:scale-110 transition-transform"
           >
-            {theme ? "☀️" : "🌙"}
+            {theme ? <SunDim size={24} /> : <Moon size={24} />}
           </span>
 
-          {/* Cart + Dropdown (Desktop Only) */}
+          {/* Cart + Wishlist */}
           {token && (
-            <div className="hidden md:flex items-center gap-6">
-
-              {/* Cart Icon */}
-              <Link to="/authUser/cart" className="relative hover:text-green-500 dark:hover:text-green-400 transition">
-                <ShoppingCart className="w-6 h-6" />
-                {cartItems.numOfCartItems > 0 && (
-                  <span className="
+            <div className="flex items-center gap-6">
+              {/* Wishlist Icon */}
+              <Link
+                to="/authUser/wishlist"
+                className="relative hover:text-green-500 dark:hover:text-green-400 transition"
+              >
+                <Heart className="w-6 h-6" />
+                {wishItems.count > 0 && (
+                  <span
+                    className="
                     absolute -top-2 -right-3
                     bg-red-500 text-white text-xs
                     w-5 h-5 rounded-full
                     flex items-center justify-center
-                  ">
+                  "
+                  >
+                    {wishItems.count}
+                  </span>
+                )}
+              </Link>
+
+              {/* Cart Icon */}
+              <Link
+                to="/authUser/cart"
+                className="relative hover:text-green-500 dark:hover:text-green-400 transition"
+              >
+                <ShoppingCart className="w-6 h-6" />
+                {cartItems.numOfCartItems > 0 && (
+                  <span
+                    className="
+                    absolute -top-2 -right-3
+                    bg-red-500 text-white text-xs
+                    w-5 h-5 rounded-full
+                    flex items-center justify-center
+                  "
+                  >
                     {cartItems.numOfCartItems}
                   </span>
                 )}
               </Link>
 
-              <Dropdown setMenuOpen={setMenuOpen} />
+              <div className="hidden md:flex">
+                <Dropdown />
+              </div>
             </div>
           )}
 
-          {/* Login Buttons (Desktop Only) */}
+          {/* Login Buttons */}
           {!token && (
             <div className="hidden md:flex gap-3 text-sm font-semibold">
               <Link
@@ -98,33 +144,73 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
+          {/* Mobile Menu Toggle */}
+          <div
+            className="md:hidden cursor-pointer"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
             {menuOpen ? <X size={26} /> : <Menu size={26} />}
           </div>
-
         </div>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="
+        <div
+          className="
           md:hidden px-4 py-3 space-y-3
           bg-white dark:bg-gray-900
           text-gray-900 dark:text-white
           border-t border-gray-200 dark:border-gray-700
-        ">
+        "
+        >
           {token ? (
             <>
-              <NavLink className="block hover:text-green-500 transition" to="/" onClick={() => setMenuOpen(false)}>Home</NavLink>
-              <NavLink className="block hover:text-green-500 transition" to="/authUser/products" onClick={() => setMenuOpen(false)}>Products</NavLink>
-              <NavLink className="block hover:text-green-500 transition" to="/authUser/categories" onClick={() => setMenuOpen(false)}>Categories</NavLink>
-              <Link className="block hover:text-green-500 transition" to="/authUser/cart" onClick={() => setMenuOpen(false)}>Cart</Link>
+              <NavLink
+                className="block hover:text-green-500 transition"
+                to="/authUser"
+                onClick={() => setMenuOpen(false)}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                className="block hover:text-green-500 transition"
+                to="/authUser/products"
+                onClick={() => setMenuOpen(false)}
+              >
+                Products
+              </NavLink>
+              <NavLink
+                className="block hover:text-green-500 transition"
+                to="/authUser/categories"
+                onClick={() => setMenuOpen(false)}
+              >
+                Categories
+              </NavLink>
+              <Link
+                className="block hover:text-green-500 transition"
+                to="/authUser/cart"
+                onClick={() => setMenuOpen(false)}
+              >
+                Cart
+              </Link>
             </>
           ) : (
             <>
-              <Link className="block hover:text-green-500 transition" to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
-              <Link className="block hover:text-green-500 transition" to="/register" onClick={() => setMenuOpen(false)}>Register</Link>
+              <Link
+                className="block hover:text-green-500 transition"
+                to="/login"
+                onClick={() => setMenuOpen(false)}
+              >
+                Login
+              </Link>
+              <Link
+                className="block hover:text-green-500 transition"
+                to="/register"
+                onClick={() => setMenuOpen(false)}
+              >
+                Register
+              </Link>
             </>
           )}
         </div>

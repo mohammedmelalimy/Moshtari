@@ -3,11 +3,11 @@ import axios from "axios";
 import { Circles } from "react-loader-spinner";
 import Card from "../../Components/Card/Card";
 
-const Products = () => {
+const Products = ({show}) => {
 
   const fetchProducts = async () => {
     const res = await axios.get("https://ecommerce.routemisr.com/api/v1/products");
-    return res.data.data; // array of products
+    return res.data.data;
   };
 
   const { data = [], isLoading, isError, error } = useQuery({
@@ -15,6 +15,8 @@ const Products = () => {
     queryFn: fetchProducts,
   });
 
+  const displayedProducts = data.slice(0, show);
+  
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -30,7 +32,7 @@ const Products = () => {
   return (
     <div className="min-h-screen p-6 dark:bg-gray-900 dark:text-white">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {data.map((product) => (
+        {displayedProducts.map((product) => (
           <div key={product.id}>
             <Card product={product} />
           </div>

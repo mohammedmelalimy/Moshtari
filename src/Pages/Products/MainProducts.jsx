@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Circles } from "react-loader-spinner";
 import MainCard from "../../Components/Card/MainCard";
-const MainProducts = () => {
-
+const MainProducts = ({show}) => {
   const fetchProducts = async () => {
     const res = await axios.get("https://dummyjson.com/products");
     return res.data;
@@ -26,10 +25,12 @@ const MainProducts = () => {
     return <div>{error.message}</div>;
   }
 
+  const displayedProducts = data.products.slice(0, show);
+
   return (
     <div className="min-h-screen p-6 dark:bg-gray-900 dark:text-white">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {data.products.map((product) => (
+        {displayedProducts.map((product) => (
           <div key={product.id}>
             <MainCard product={product} />
           </div>
