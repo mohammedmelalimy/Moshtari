@@ -3,7 +3,6 @@ import "aos/dist/aos.css";
 import { useEffect, useState } from "react";
 
 import { ChevronsDown, ChevronsUp } from "lucide-react";
-import Contact from "../../Components/Contact/Contact";
 import { Features } from "../../Components/Features/Features";
 import { Newsletter } from "../../Components/Newsletter/Newsletter";
 import Promo from "../../Components/Promo/Promo";
@@ -89,12 +88,6 @@ const Home = () => {
       
       {/* NewsLetter Section */}
       <Newsletter/>
-      {/* Contact Section */}
-      {!token && (
-        <div data-aos="fade-left" className="px-4 lg:px-10 py-3 container mx-auto">
-          <Contact />
-        </div>
-      )}
     </div>
   );
 };

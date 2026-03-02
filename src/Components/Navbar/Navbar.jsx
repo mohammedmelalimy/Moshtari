@@ -132,12 +132,14 @@ const Navbar = () => {
               <Link
                 to="/login"
                 className="px-5 py-2 rounded-lg bg-green-500 text-white shadow hover:bg-green-600 transition"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Login
               </Link>
               <Link
                 to="/register"
                 className="px-5 py-2 rounded-lg bg-green-500 text-white shadow hover:bg-green-600 transition"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 Register
               </Link>
