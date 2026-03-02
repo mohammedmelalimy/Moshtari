@@ -15,7 +15,7 @@ export function Newsletter() {
           </p>
 
           {/* Form */}
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <form className="flex flex-col sm:flex-row gap-5 max-w-md mx-auto">
             <input
               type="email"
               placeholder="Enter your email"
