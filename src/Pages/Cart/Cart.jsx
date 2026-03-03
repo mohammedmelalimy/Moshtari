@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { deleteProduct } from "../../store/thunk/deleteProduct";
 import { updateQuantity } from "../../store/thunk/updateQuantity";
 const Cart = () => {
   const dispatch = useDispatch();
@@ -60,13 +61,20 @@ const Cart = () => {
                 </button>
               </div>
             </td>
-            <td className="p-1 md:p-4 font-semibold">${product.price}</td>
+            <td className="p-1 md:p-4 font-semibold">
+              ${ (product?.price || 0) * (product?.count || 0) }
+            </td>
             <td className="p-1 md:p-4">
-              <button className="text-red-600 dark:text-red-400 hover:underline">
+              <button 
+              onClick={() => {
+                dispatch(deleteProduct(product.product._id));
+              }}
+              className="text-red-600 dark:text-red-400 hover:underline">
                 Remove
               </button>
             </td>
-          </tr>))}
+          </tr>
+          ))}
         </tbody>
       </table>
     </div>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addProductToCart } from "../thunk/addToCart";
+import { deleteProduct } from "../thunk/deleteProduct";
 import { updateQuantity } from "../thunk/updateQuantity";
 import { fetchUserCart } from "../thunk/userCart";
 const initialState = {
@@ -52,6 +53,19 @@ const cartSlice = createSlice({
         state.cart = action.payload;
       })
       .addCase(updateQuantity.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to update product count";
+      })
+      // delete product from cart
+      .addCase(deleteProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cart = action.payload;
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to update product count";
       });
