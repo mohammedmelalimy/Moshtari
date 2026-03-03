@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { updateQuantity } from "../../store/thunk/updateQuantity";
 const Cart = () => {
-  
+  const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.cart?.cart?.data?.products||[]);
   
   
@@ -33,7 +33,13 @@ const Cart = () => {
             <td className="p-1 md:p-4 font-semibold">{product.product.title}</td>
             <td className="p-1 md:p-4">
               <div className="flex items-center gap-2">
-                <button className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
+                <button onClick={()=>{
+                  dispatch(
+                    updateQuantity(
+                      { productId:product.product._id,
+                        newCount:(product.count-1)
+                      }))}}
+                className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
                   -
                 </button>
                 <input
@@ -41,8 +47,15 @@ const Cart = () => {
                   value={product.count}
                   className="w-12 text-center border-0 bg-transparent dark:text-gray-200 focus:outline-none"
                   readOnly
+                  disabled={true}
                 />
-                <button className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
+                <button onClick={()=>{
+                  dispatch(
+                    updateQuantity(
+                      { productId:product.product._id,
+                        newCount:(product.count+1)
+                      }))}}
+                className="w-6 h-6 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
                   +
                 </button>
               </div>

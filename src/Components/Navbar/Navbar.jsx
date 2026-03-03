@@ -18,9 +18,8 @@ const Navbar = () => {
     <div
       className="
       sticky top-0 z-50
-      bg-white dark:bg-gray-900
+      bg-gray-100 dark:bg-gray-900
       text-gray-900 dark:text-white
-      shadow-sm
       transition-colors duration-300
     "
     >
