@@ -5,7 +5,8 @@ import { updateQuantity } from "../../store/thunk/updateQuantity";
 const Cart = () => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.cart?.cart?.data?.products||[]);
-  
+  const numOfCartItems = useSelector((state)=> state.cart?.cart?.numOfCartItems || 0);
+  const totalPrice = useSelector((state)=> state.cart?.cart?.data?.totalCartPrice || 0);
   if (allProducts.length === 0) {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
@@ -95,6 +96,16 @@ const Cart = () => {
           ))}
         </tbody>
       </table>
+      <div className="flex flex-col items-end gap-2 mt-6">
+        <div className="flex justify-between w-full max-w-xs bg-green-200 dark:bg-green-700 text-gray-800 dark:text-gray-100 rounded-lg p-3 shadow-md">
+          <span className="font-medium">Total Items:</span>
+          <span className="font-bold">{numOfCartItems}</span>
+        </div>
+        <div className="flex justify-between w-full max-w-xs bg-green-200 dark:bg-green-700 text-gray-800 dark:text-gray-100 rounded-lg p-3 shadow-md">
+          <span className="font-medium">Total Price:</span>
+          <span className="font-bold">${totalPrice}</span>
+        </div>
+      </div>
     </div>
   );
 };
