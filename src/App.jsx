@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import router from "./routes";
-import { login } from "./store/slices/authSlice";
+import { setToken } from "./store/slices/authSlice";
 import { fetchUserCart } from "./store/thunk/userCart";
 import { fetchUserWishlist } from "./store/thunk/Wishlist";
 const App = () => {
@@ -14,10 +14,8 @@ const App = () => {
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
     if (savedToken) {
-      dispatch(login({
-        token: savedToken
-      }));
-            // Fetch cart automatically
+      dispatch(setToken(savedToken));
+      // Fetch cart automatically
       dispatch(fetchUserCart());
       dispatch(fetchUserWishlist());
     }

@@ -1,6 +1,5 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import axios from "axios";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
@@ -8,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { login } from "../../store/slices/authSlice";
+import { setToken } from "../../store/slices/authSlice";
+import { loginThunk } from "../../store/thunk/authentication";
 import { fetchUserCart } from "../../store/thunk/userCart";
 
 const Login = () => {
@@ -19,8 +19,9 @@ const Login = () => {
 useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      // Restore token in Redux
-      dispatch(login({ token }));
+      dispatch(setToken(token));
+      dispatch(fetchUserCart());
+      navigate("/authUser");
     }
     AOS.init({
     duration: 900,
@@ -28,24 +29,17 @@ useEffect(() => {
     once: true,
     offset: 120,
   });
-  }, [dispatch]);
+  }, [dispatch,navigate]);
 
 const LoginSubmit = async (values) => {
   const { email, password } = values;
   setLoading(true);
 
   try {
-    const res = await axios.post(
-      "https://ecommerce.routemisr.com/api/v1/auth/signin",
-      { email, password }
-    );
-    const { token } = res.data;
-
+    // dispatch login thunk
+      const resultAction = await dispatch(loginThunk({ email, password }));
     // Save token to localStorage
-    localStorage.setItem("token", token);
-
-    // Save token in Redux
-    dispatch(login({ token }));
+      localStorage.setItem("token", resultAction.payload.token);
 
     // Fetch cart AFTER login
     dispatch(fetchUserCart());
@@ -56,8 +50,8 @@ const LoginSubmit = async (values) => {
     // Navigate after everything is ready
     navigate("/authUser");
   } catch (err) {
-    console.log(err);
-    toast.error(err.response.data.message);
+      const message = err?.response?.data?.message || err.message || "Login failed";
+      toast.error(message);
   } finally {
     setLoading(false);
   }
