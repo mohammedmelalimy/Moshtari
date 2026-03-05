@@ -45,7 +45,13 @@ const LoginSubmit = async (values) => {
     dispatch(fetchUserCart());
 
     // toast
-    toast.success("Login successful");
+    toast.success("Login successful", {
+      style: {
+        background: "#4ade91",  // green background
+        color: "#000",           // text color
+        fontWeight: "600",
+      }
+    });
     
     // Navigate after everything is ready
     navigate("/authUser");
