@@ -6,6 +6,7 @@ const Auth = () => {
   return (
     <>
     <Navbar/>
+
     <div className="flex justify-between w-full">
       <SideBar/>
       <main className="w-full md:w-5/6 ">

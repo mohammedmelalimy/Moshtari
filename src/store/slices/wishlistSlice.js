@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserWishlist } from "../thunk/Wishlist";
+import { addToWishlist, deleteFromWishlist, fetchUserWishlist } from "../thunk/Wishlist";
 const initialState = {
   wishlist: {}, 
   loading: false,
@@ -10,8 +10,8 @@ const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
   reducers: {
-    clearCart: (state) => {
-      state.cart = null;
+    clearWishlist: (state) => {
+      state.wishlist = {};
       state.error = null;
     },
   },
@@ -31,19 +31,31 @@ const wishlistSlice = createSlice({
         state.error = action.payload || "Failed to fetch wishlist";
       })
 
-      // addProductToWishlist
-      // .addCase(addProductToCart.pending, (state) => {
-      //   state.loading = true;
-      //   state.error = null;
-      // })
-      // .addCase(addProductToCart.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //   state.wishlist = action.payload;
-      // })
-      // .addCase(addProductToCart.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.payload || "Failed to add product";
-      // });
+      .addCase(addToWishlist.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addToWishlist.fulfilled, (state, action) => {
+        state.loading = false;
+        state.wishlist = action.payload;
+      })
+      .addCase(addToWishlist.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to add product";
+      })
+      // deleteFromWishlist
+      .addCase(deleteFromWishlist.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteFromWishlist.fulfilled, (state, action) => {
+        state.loading = false;
+        state.wishlist = action.payload;
+      })
+      .addCase(deleteFromWishlist.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to delete product";
+      });
   },
 });
 

@@ -1,9 +1,11 @@
+import { Heart } from "lucide-react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addProductToCart } from "../../store/thunk/cart/addToCart";
 import { fetchUserCart } from "../../store/thunk/userCart";
+import { addToWishlist } from "../../store/thunk/Wishlist";
 const Card = ({ product }) => {
   const dispatch=useDispatch();
   const cartItems = useSelector((state) => state.cart.cart?.numberOfItems || 0);
@@ -41,14 +43,34 @@ const Card = ({ product }) => {
         </div>
       </Link>
       
-      {/* Add to Cart Button */}
-      <button
-        onClick={() => {dispatch(addProductToCart(product.id)) ;  
-          toast("Product added to cart");}}
-        className="absolute top-3 right-3 bg-green-600 dark:bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center opacity-0 group-hover:opacity-100 transform group-hover:translate-x-1 transition-all duration-300 hover:bg-green-700 dark:hover:bg-green-600 shadow-md"
-      >
-        +
-      </button>
+      {/* Add to Cart & Wishlist Buttons */}
+      <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+
+        {/* Add To Cart */}
+        <button
+          onClick={() => {
+            dispatch(addProductToCart(product.id));
+            toast("Product added to cart");
+          }}
+          className="bg-green-600 dark:bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center 
+          hover:bg-green-700 dark:hover:bg-green-600 shadow-lg transform hover:scale-110 transition"
+        >
+          +
+        </button>
+
+        {/* Wishlist */}
+        <button
+          onClick={() => {
+            dispatch(addToWishlist(product.id));
+            toast("Product added to wishlist");
+          }}
+          className="bg-pink-500 dark:bg-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center 
+          hover:bg-pink-600 shadow-lg transform hover:scale-110 transition"
+        >
+          <Heart className="w-6 h-6" />
+        </button>
+
+      </div>
     </div>
   );
 };

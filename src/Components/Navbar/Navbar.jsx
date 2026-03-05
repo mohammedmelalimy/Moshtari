@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { toggleTheme } from "../../store/slices/themeSlice";
 import Dropdown from "../Dropdown/Dropdown";
-
+import Wishlist from "../Wishlist/Wishlist";
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.auth.token);
@@ -21,6 +22,7 @@ const Navbar = () => {
       bg-gray-100 dark:bg-black
       text-gray-900 dark:text-white
       transition-colors duration-300
+      border-b border-gray-300 dark:border-gray-700
     "
     >
       <div className=" mx-auto flex items-center justify-between py-4 px-4">
@@ -34,36 +36,6 @@ const Navbar = () => {
             <ShoppingBasket size={36} />
             <p className="text-xl font-extrabold">Moshtari</p>
           </Link>
-
-          {/* Desktop Links */}
-          {/* {token && (
-            <nav className="hidden md:flex gap-6 text-base font-medium">
-              <NavLink
-                className="hover:text-green-600 dark:hover:text-green-400 transition"
-                to="/authUser"
-              >
-                Home
-              </NavLink>
-              <NavLink
-                className="hover:text-green-600 dark:hover:text-green-400 transition"
-                to="/authUser/products"
-              >
-                Products
-              </NavLink>
-              <NavLink
-                className="hover:text-green-600 dark:hover:text-green-400 transition"
-                to="/authUser/categories"
-              >
-                Categories
-              </NavLink>
-              <NavLink
-                className="hover:text-green-600 dark:hover:text-green-400 transition"
-                to="/authUser/brands"
-              >
-                Brands
-              </NavLink>
-            </nav>
-          )} */}
         </div>
 
         {/* Right: Theme + Cart + Dropdown */}
@@ -81,11 +53,11 @@ const Navbar = () => {
             <div className="flex items-center gap-6">
               {/* Wishlist Icon */}
               <Link
-                to="/authUser/wishlist"
                 className="relative hover:text-green-500 dark:hover:text-green-400 transition"
+                onClick={()=>{setOpen(true)}}
               >
                 <Heart className="w-6 h-6" />
-                {wishItems.count > 0 && (
+                {wishItems?.data?.length > 0 && (
                   <span
                     className="
                     absolute -top-2 -right-3
@@ -94,11 +66,11 @@ const Navbar = () => {
                     flex items-center justify-center
                   "
                   >
-                    {wishItems.count}
+                    {wishItems.count || wishItems.data.length}
                   </span>
                 )}
               </Link>
-
+              {open && <Wishlist open={open} setOpen={setOpen}/>}
               {/* Cart Icon */}
               <Link
                 to="/authUser/cart"
