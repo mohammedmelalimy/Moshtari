@@ -29,148 +29,145 @@ const Cart = () => {
     );
   }
 
-  return (
-    <div className="container mx-auto px-4 py-8 dark:bg-black flex flex-col gap-8">
-      
-      <h1 className="text-3xl font-bold text-gray-800 dark:bg-black dark:text-gray-100 mb-6">Your Shopping Cart</h1>
-      
-<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+return (
+  <div className="container mx-auto px-4 py-8 dark:bg-black flex flex-col gap-8">
 
-  {/* Cart Items - 3/4 */}
-  <div className="lg:col-span-3 overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-    <table className="min-w-full text-left text-gray-700 dark:text-gray-200">
-      <thead className="bg-gray-100 dark:bg-gray-800">
-        <tr>
-          <th className="p-4">Product</th>
-          <th className="p-4">Quantity</th>
-          <th className="p-4">Price</th>
-          <th className="p-4">Action</th>
-        </tr>
-      </thead>
+    <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
+      Your Shopping Cart
+    </h1>
 
-      <tbody>
-        {allProducts.map((product) => (
-          <tr
-            key={product._id}
-            className="bg-white dark:bg-gray-900 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
-          >
-            <td className="flex items-center gap-4 p-4">
-              <img
-                src={product.product.imageCover}
-                alt={product.product.title}
-                className="w-16 h-16 object-contain rounded-lg bg-gray-100 dark:bg-gray-800 p-1"
-              />
-              <span className="font-semibold">
-                {product.product.title}
-              </span>
-            </td>
+    <div className="flex flex-col gap-8">
 
-            <td className="p-4">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() =>
-                    dispatch(
-                      updateQuantity({
-                        productId: product.product._id,
-                        newCount: product.count - 1,
-                      })
-                    )
-                  }
-                  className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-                >
-                  -
-                </button>
+      {/* Cart Items */}
+      <div className="overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+        <table className="min-w-full text-left text-gray-700 dark:text-gray-200">
+          <thead className="bg-gray-100 dark:bg-gray-800">
+            <tr>
+              <th className="p-4">Product</th>
+              <th className="p-4">Quantity</th>
+              <th className="p-4">Price</th>
+              <th className="p-4">Action</th>
+            </tr>
+          </thead>
 
-                <input
-                  type="text"
-                  value={product.count}
-                  readOnly
-                  className="w-12 text-center border-0 bg-transparent dark:text-gray-200 focus:outline-none font-semibold"
-                />
-
-                <button
-                  onClick={() =>
-                    dispatch(
-                      updateQuantity({
-                        productId: product.product._id,
-                        newCount: product.count + 1,
-                      })
-                    )
-                  }
-                  className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-                >
-                  +
-                </button>
-              </div>
-            </td>
-
-            <td className="p-4 font-semibold text-green-600 dark:text-green-400">
-              ${(product.price || 0) * (product.count || 0)}
-            </td>
-
-            <td className="p-4">
-              <button
-                onClick={() =>
-                  dispatch(deleteProduct(product.product._id))
-                }
-                className="text-red-600 dark:text-red-400 hover:underline"
+          <tbody>
+            {allProducts.map((product) => (
+              <tr
+                key={product._id}
+                className="bg-white dark:bg-gray-900 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
               >
-                Remove
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+                <td className="flex items-center gap-4 p-4">
+                  <img
+                    src={product.product.imageCover}
+                    alt={product.product.title}
+                    className="w-16 h-16 object-contain rounded-lg bg-gray-100 dark:bg-gray-800 p-1"
+                  />
+                  <span className="font-semibold">
+                    {product.product.title}
+                  </span>
+                </td>
 
-  {/* Order Summary - 1/4 */}
-  <div className="lg:col-span-1 sticky top-24 h-fit p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                <td className="p-4">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          updateQuantity({
+                            productId: product.product._id,
+                            newCount: product.count - 1,
+                          })
+                        )
+                      }
+                      className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700"
+                    >
+                      -
+                    </button>
 
-    <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-5">
-      Order Summary
-    </h2>
+                    <input
+                      type="text"
+                      value={product.count}
+                      readOnly
+                      className="w-12 text-center bg-transparent font-semibold"
+                    />
 
-    <div className="flex flex-col gap-4">
-      <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-        <span className="text-gray-600 dark:text-gray-300">
-          Total Items
-        </span>
-        <span className="font-semibold">
-          {numOfCartItems}
-        </span>
+                    <button
+                      onClick={() =>
+                        dispatch(
+                          updateQuantity({
+                            productId: product.product._id,
+                            newCount: product.count + 1,
+                          })
+                        )
+                      }
+                      className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700"
+                    >
+                      +
+                    </button>
+                  </div>
+                </td>
+
+                <td className="p-4 font-semibold text-green-600 dark:text-green-400">
+                  ${(product.price || 0) * (product.count || 0)}
+                </td>
+
+                <td className="p-4">
+                  <button
+                    onClick={() =>
+                      dispatch(deleteProduct(product.product._id))
+                    }
+                    className="text-red-600 dark:text-red-400 hover:underline"
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      <div className="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
-        <span className="text-gray-600 dark:text-gray-300">
-          Total Price
-        </span>
-        <span className="font-semibold text-green-600 dark:text-green-400">
-          ${totalPrice.toFixed(2)}
-        </span>
+      {/* Order Summary / Invoice */}
+      <div className="w-full md:w-1/2 lg:w-1/3 self-end p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+
+        <h2 className="text-xl font-semibold mb-5 text-black dark:text-gray-100">
+          Order Summary
+        </h2>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex justify-between border-b pb-2">
+            <span className="text-black dark:text-gray-100">Total Items</span>
+            <span className="font-semibold text-black dark:text-gray-100">{numOfCartItems}</span>
+          </div>
+
+          <div className="flex justify-between border-b pb-2">
+            <span className="text-black dark:text-gray-100">Total Price</span>
+            <span className="font-semibold text-green-600 dark:text-green-400">
+              ${totalPrice.toFixed(2)}
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 mt-6">
+          <Link
+            to="/authUser/payment"
+            className="text-center p-3 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-xl"
+          >
+            Proceed to Payment
+          </Link>
+
+          <button
+            onClick={() => dispatch(clearCart())}
+            className="text-center p-3 bg-red-700 hover:bg-red-800 text-white font-semibold rounded-xl"
+          >
+            Clear Cart
+          </button>
+        </div>
+
       </div>
-    </div>
 
-    <div className="flex flex-col gap-3 mt-6">
-      <Link
-        to="/authUser/payment"
-        className="text-center p-3 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-xl shadow-md transition hover:scale-105"
-      >
-        Proceed to Payment
-      </Link>
-
-      <button
-        onClick={() => dispatch(clearCart())}
-        className="text-center p-3 bg-red-700 hover:bg-red-800 text-white font-semibold rounded-xl shadow-md transition hover:scale-105"
-      >
-        Clear Cart
-      </button>
     </div>
   </div>
-
-</div>
-    </div>
-  );
+);
 };
 
 export default Cart;
