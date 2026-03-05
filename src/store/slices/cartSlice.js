@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addProductToCart } from "../thunk/addToCart";
-import { deleteProduct } from "../thunk/deleteProduct";
-import { updateQuantity } from "../thunk/updateQuantity";
+import { addProductToCart } from "../thunk/cart/addToCart";
+import { clearCart } from "../thunk/cart/clearCart";
+import { deleteProduct } from "../thunk/cart/deleteProduct";
+import { updateQuantity } from "../thunk/cart/updateQuantity";
 import { fetchUserCart } from "../thunk/userCart";
 const initialState = {
   cart: {}, 
@@ -68,9 +69,21 @@ const cartSlice = createSlice({
       .addCase(deleteProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || "Failed to update product count";
+      })
+      // clear cart
+      .addCase(clearCart.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(clearCart.fulfilled, (state) => {
+        state.loading = false;
+        state.cart = {};
+      })
+      .addCase(clearCart.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed to clear cart";
       });
   },
 });
 
-export const { clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

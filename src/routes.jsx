@@ -10,6 +10,10 @@ import Login from "./Pages/Login/Login"
 import Products from "./Pages/Products/Products"
 import Register from "./Pages/Register/Register"
 import ProtectedRoute from "/src/Components/Protected/ProtectedRoute"
+import Payment from "./Pages/Payment/Payment"
+
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +35,7 @@ const router = createBrowserRouter([
       {path:'brands' , element:<ProtectedRoute><Brands/></ProtectedRoute>},
       {path:'cart' , element:<ProtectedRoute><Cart/></ProtectedRoute>},
       {path:'details/:id' , element:<ProtectedRoute><Details/></ProtectedRoute>},
+      {path:'payment' , element:<ProtectedRoute><Payment/></ProtectedRoute>},
     ]
 }
 ])

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { addProductToCart } from "../../store/thunk/addToCart";
+import { addProductToCart } from "../../store/thunk/cart/addToCart";
 import { fetchUserCart } from "../../store/thunk/userCart";
 const Card = ({ product }) => {
   const dispatch=useDispatch();
