@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFromWishlist } from "../../store/thunk/Wishlist";
-
+// import { deleteFromWishlist } from "../../store/thunk/Wishlist";
+import { clearWishlist } from "../../store/slices/wishlistSlice";
 const Wishlist = ({ open, setOpen }) => {
-  const wishItems = useSelector((state) => state.wishlist.wishlist.data || []);
+  const wishItems = useSelector((state) => state.wishlist.wishlist);
   const dispatch = useDispatch();
 
   return (
@@ -10,7 +10,7 @@ const Wishlist = ({ open, setOpen }) => {
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-30 transition-opacity"        />
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-30 transition-opacity"/>
       )}
 
       {/* Drawer */}
@@ -32,7 +32,7 @@ const Wishlist = ({ open, setOpen }) => {
         </div>
 
         {/* Empty state */}
-        {wishItems.length === 0 && (
+        {wishItems.data.length === 0 && (
           <div className="text-center mt-20">
             <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
               Your wishlist is empty
@@ -41,7 +41,7 @@ const Wishlist = ({ open, setOpen }) => {
         )}
 
         {/* Items */}
-        {wishItems.map((item,index) => (
+        {wishItems.data.map((item,index) => (
           <div key={item.id || index}
             className="flex items-center gap-4 mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition"
           >
@@ -54,11 +54,12 @@ const Wishlist = ({ open, setOpen }) => {
               <h3 className="text-md font-semibold text-gray-900 dark:text-white">{item.title}</h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">${item.price}</p>
             </div>
-            <button onClick={()=>dispatch(deleteFromWishlist(item.id))} className="text-red-500 hover:text-red-700 transition">
+            {/* <button onClick={()=>dispatch(deleteFromWishlist(item.id))} className="text-red-500 hover:text-red-700 transition">
               remove
-            </button>
+            </button> */}
           </div>
         ))}
+        <button onClick={()=>dispatch(clearWishlist())} >clear</button>
       </div>
     </div>
   );

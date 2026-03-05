@@ -1,14 +1,15 @@
 import { User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../store/slices/authSlice";
 
-const Dropdown = ({ setMenuOpen }) => {
+const Dropdown = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const user = useSelector((state) => state.auth.user);
 
   const dropdownRef = useRef();
 
@@ -16,7 +17,6 @@ const Dropdown = ({ setMenuOpen }) => {
     localStorage.removeItem("token");
     dispatch(logout());
     navigate("/");
-    setMenuOpen(false);
   };
 
   // Close dropdown on click outside
@@ -53,12 +53,12 @@ const Dropdown = ({ setMenuOpen }) => {
         <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center gap-3">
           <img
             className="w-10 h-10 rounded-full"
-            src="https://ui-avatars.com/api/?name=User"
+            src={`https://ui-avatars.com/api/?name=${user.name}`}
             alt="User avatar"
           />
           <div>
-            <h4 className="font-semibold text-gray-800 dark:text-white">User</h4>
-            <p className="text-sm text-gray-500 dark:text-gray-300">user@email.com</p>
+            <h4 className="font-semibold text-gray-800 dark:text-white">{user.name}</h4>
+            <p className="text-sm text-gray-500 dark:text-gray-300">{user.email}</p>
           </div>
         </div>
 

@@ -11,6 +11,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.auth.token);
+  const user = useSelector((state) => state.auth.user);
   const theme = useSelector((state) => state.theme.isDark);
   const cartItems = useSelector((state) => state.cart.cart);
   const wishItems = useSelector((state) => state.wishlist.wishlist);
@@ -49,54 +50,67 @@ const Navbar = () => {
           </span>
 
           {/* Cart + Wishlist */}
-          {token && (
-            <div className="flex items-center gap-6">
-              {/* Wishlist Icon */}
-              <Link
-                className="relative hover:text-green-500 dark:hover:text-green-400 transition"
-                onClick={()=>{setOpen(true)}}
-              >
-                <Heart className="w-6 h-6" />
-                {wishItems?.data?.length > 0 && (
-                  <span
-                    className="
-                    absolute -top-2 -right-3
-                    bg-red-500 text-white text-xs
-                    w-5 h-5 rounded-full
-                    flex items-center justify-center
-                  "
-                  >
-                    {wishItems.count || wishItems.data.length}
-                  </span>
-                )}
-              </Link>
-              {open && <Wishlist open={open} setOpen={setOpen}/>}
-              {/* Cart Icon */}
-              <Link
-                to="/authUser/cart"
-                className="relative hover:text-green-500 dark:hover:text-green-400 transition"
-              >
-                <ShoppingCart className="w-6 h-6" />
-                {cartItems.numOfCartItems > 0 && (
-                  <span
-                    className="
-                    absolute -top-2 -right-3
-                    bg-red-500 text-white text-xs
-                    w-5 h-5 rounded-full
-                    flex items-center justify-center
-                  "
-                  >
-                    {cartItems.numOfCartItems}
-                  </span>
-                )}
-              </Link>
+            {token && (
+              <div className="flex items-center gap-6">
 
-              <div className="hidden md:flex">
-                <Dropdown />
+                {/* Wishlist */}
+                <button
+                  onClick={() => setOpen(true)}
+                  className="relative flex items-center justify-center hover:text-green-500 dark:hover:text-green-400 transition-transform hover:scale-110"
+                >
+                  <Heart className="w-6 h-6" />
+
+                  {wishItems?.data?.length > 0 && (
+                    <span
+                      className="
+                      absolute -top-2 -right-2
+                      bg-red-500 text-white text-xs font-bold
+                      min-w-[18px] h-[18px]
+                      rounded-full flex items-center justify-center
+                      px-1
+                    "
+                    >
+                      {wishItems.data.length}
+                    </span>
+                  )}
+                </button>
+
+                {open && <Wishlist open={open} setOpen={setOpen} />}
+
+                {/* Cart */}
+                <Link
+                  to="/authUser/cart"
+                  className="relative flex items-center justify-center hover:text-green-500 dark:hover:text-green-400 transition-transform hover:scale-110"
+                >
+                  <ShoppingCart className="w-6 h-6" />
+
+                  {cartItems?.numOfCartItems > 0 && (
+                    <span
+                      className="
+                      absolute -top-2 -right-2
+                      bg-red-500 text-white text-xs font-bold
+                      min-w-[18px] h-[18px]
+                      rounded-full flex items-center justify-center
+                      px-1
+                    "
+                    >
+                      {cartItems.numOfCartItems}
+                    </span>
+                  )}
+                </Link>
+
+                {/* Welcome User */}
+                <span className="hidden md:block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                  Welcome, <span className="text-green-600 dark:text-green-400">{user?.name}</span>
+                </span>
+
+                {/* Dropdown */}
+                <div className="hidden md:flex">
+                  <Dropdown />
+                </div>
+
               </div>
-            </div>
-          )}
-
+            )}
           {/* Login Buttons */}
           {!token && (
             <div className="hidden md:flex gap-3 text-sm font-semibold">

@@ -33,11 +33,11 @@ export const addToWishlist = createAsyncThunk(
       const response = await axios.post(
         "https://ecommerce.routemisr.com/api/v1/Wishlist",
         {
-          productId: productId
+          productId
         },
         {
           headers: {
-            token: token,
+            token
           },
         }
       );
@@ -48,25 +48,25 @@ export const addToWishlist = createAsyncThunk(
     }
   }
 );
-export const deleteFromWishlist = createAsyncThunk(
-  "cart/deleteFromWishlist",
-  async (productId, thunkAPI) => {
-    try {
-      const state = thunkAPI.getState();
-      const token = state.auth.token || localStorage.getItem("token");
+// export const deleteFromWishlist = createAsyncThunk(
+//   "cart/deleteFromWishlist",
+//   async (productId, thunkAPI) => {
+//     try {
+//       const state = thunkAPI.getState();
+//       const token = state.auth.token || localStorage.getItem("token");
 
-      const response = await axios.delete(
-        `https://ecommerce.routemisr.com/api/v1/Wishlist/${productId}`,
-        {
-          headers: {
-            token: token,
-          },
-        }
-      );
+//       const response = await axios.delete(
+//         `https://ecommerce.routemisr.com/api/v1/Wishlist/${productId}`,
+//         {
+//           headers: {
+//             token
+//           },
+//         }
+//       );
 
-      return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || err.message);
-    }
-  }
-);
+//       return response.data;
+//     } catch (err) {
+//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
+//     }
+//   }
+// );

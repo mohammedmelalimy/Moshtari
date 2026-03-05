@@ -3,6 +3,7 @@ import { loginThunk } from "../thunk/authentication";
 
 const initialState = {
   token: localStorage.getItem("token") || null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   loading: false,
   error: null
 };
@@ -28,7 +29,9 @@ const authSlice = createSlice({
       .addCase(loginThunk.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload.token;
+        state.user = action.payload.user;
         localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("user", JSON.stringify(action.payload.user));
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.loading = false;

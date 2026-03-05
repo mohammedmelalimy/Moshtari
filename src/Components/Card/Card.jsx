@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addProductToCart } from "../../store/thunk/cart/addToCart";
 import { fetchUserCart } from "../../store/thunk/userCart";
-import { addToWishlist } from "../../store/thunk/Wishlist";
+import { addToWishlist, fetchUserWishlist } from "../../store/thunk/Wishlist";
 const Card = ({ product }) => {
   const dispatch=useDispatch();
   const cartItems = useSelector((state) => state.cart.cart?.numberOfItems || 0);
-
+  const wishItems = useSelector((state) => state.wishlist.wishlist);
   useEffect(() => {
     // Fetch cart whenever number of items changes
     dispatch(fetchUserCart());
@@ -20,7 +20,7 @@ const Card = ({ product }) => {
     <div className="relative border rounded-xl overflow-hidden shadow-md bg-white dark:bg-black border-gray-200 dark:border-gray-700 transition-transform transform hover:scale-105 hover:shadow-xl duration-300 group">
       
       {/* Product Link */}
-      <Link to={`/authUser/details/${product.id}`}>
+      <Link to={`/authUser/details/${product.id}`} onClick={() => window.scrollTo(0, 0)} className="block h-full">
         {/* Product Image */}
         <div className="relative w-full h-56 md:h-64 overflow-hidden">
           <img
@@ -36,9 +36,26 @@ const Card = ({ product }) => {
           <h2 className="font-semibold text-lg text-gray-800 dark:text-gray-100 truncate px-2">
             {product.title}
           </h2>
-          <div className="flex justify-between  bg-black dark:bg-slate-700 p-2 rounded-sm">
-            <h4 className="text-white dark:text-white font-bold text-sm">{product.category.name}</h4>
-            <p className="text-green-600 dark:text-green-400 font-bold">${product.price}</p>
+
+          <div className="flex flex-col justify-between bg-black dark:bg-slate-700 p-2 rounded-sm">
+            <h4 className="text-white dark:text-white font-bold text-sm">{product.brand.name}</h4>
+            <h5 className="text-white dark:text-white font-bold text-sm">{product.category.name}</h5>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center ">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <span key={i} className={`text-yellow-400 text-sm`}>
+                    {product.ratingsAverage >= i ? '★' : '☆'}
+                  </span>
+                ))}
+                {/* Rating number */}
+                <span className="text-gray-400 dark:text-gray-500 ml-1">{product.ratingsAverage}</span>
+              </div>
+              {/* Price */}
+              <span className="text-amber-400 dark:text-green-500 font-bold text-lg ml-2">
+                EGP {product.price}
+              </span>
+            </div>
           </div>
         </div>
       </Link>
@@ -50,6 +67,7 @@ const Card = ({ product }) => {
         <button
           onClick={() => {
             dispatch(addProductToCart(product.id));
+            dispatch(fetchUserWishlist());
             toast("Product added to cart");
           }}
           className="bg-green-600 dark:bg-green-500 text-white rounded-full w-10 h-10 flex items-center justify-center 
@@ -62,6 +80,7 @@ const Card = ({ product }) => {
         <button
           onClick={() => {
             dispatch(addToWishlist(product.id));
+            console.log("Added to wishlist:",wishItems );
             toast("Product added to wishlist");
           }}
           className="bg-pink-500 dark:bg-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center 
