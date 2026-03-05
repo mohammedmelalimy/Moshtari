@@ -1,4 +1,4 @@
-import { Heart, Menu, Moon, ShoppingBasket, ShoppingCart, SunDim, X } from "lucide-react";
+import { Heart, Home, LayoutGrid, Menu, Moon, ShoppingBag, ShoppingBasket, ShoppingCart, SunDim, Tag, X } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
@@ -26,7 +26,7 @@ const Navbar = () => {
       border-b border-gray-300 dark:border-gray-700
     "
     >
-      <div className=" mx-auto flex items-center justify-between py-4 px-4">
+      <div className=" container mx-auto flex items-center justify-between py-4 px-4">
         {/* Left: Logo + Desktop Links */}
         <div className="flex items-center gap-10">
           {/* Logo */}
@@ -37,8 +37,38 @@ const Navbar = () => {
             <ShoppingBasket size={36} />
             <p className="text-xl font-extrabold">Moshtari</p>
           </Link>
-        </div>
+          <div>
+              {token && (
+                <nav className="flex  text-black  font-medium  dark:text-white">
+                      <NavLink
+                        to="/authUser"
+                        className="flex items-center gap-3 px-4 py-2 rounded-lg transition border-2 border-transparent hover:border-green-500">
+                        <Home size={18} />
+                        Home
+                      </NavLink>
 
+                      <NavLink
+                        to="/authUser/products"
+                        className="flex items-center gap-3 px-4 py-2 rounded-lg transition border-2 border-transparent hover:border-green-500">
+                        <ShoppingBag size={18} />
+                        Products
+                      </NavLink>
+
+                      <NavLink
+                        to="/authUser/categories"
+                        className="flex items-center gap-3 px-4 py-2 rounded-lg transition border-2 border-transparent hover:border-green-500">
+                        <LayoutGrid size={18} />
+                        Categories
+                      </NavLink>
+
+                      <NavLink to="/authUser/brands" className="flex items-center gap-3 px-4 py-2 rounded-lg transition border-2 border-transparent hover:border-green-500">
+                        <Tag size={18} />
+                        Brands
+                      </NavLink>
+                </nav>
+              )}
+          </div>
+        </div>
         {/* Right: Theme + Cart + Dropdown */}
         <div className="flex items-center gap-4">
           {/* Theme Switch */}
@@ -65,7 +95,7 @@ const Navbar = () => {
                       className="
                       absolute -top-2 -right-2
                       bg-red-500 text-white text-xs font-bold
-                      min-w-[18px] h-[18px]
+                      min-w-4.5 h-4.5
                       rounded-full flex items-center justify-center
                       px-1
                     "
@@ -89,7 +119,7 @@ const Navbar = () => {
                       className="
                       absolute -top-2 -right-2
                       bg-red-500 text-white text-xs font-bold
-                      min-w-[18px] h-[18px]
+                      min-w-4.5 h-4.5
                       rounded-full flex items-center justify-center
                       px-1
                     "
@@ -101,7 +131,7 @@ const Navbar = () => {
 
                 {/* Welcome User */}
                 <span className="hidden md:block text-sm font-semibold text-gray-700 dark:text-gray-300">
-                  Welcome, <span className="text-green-600 dark:text-green-400">{user?.name}</span>
+                  Welcome 🖐️, <span className="text-green-600 dark:text-green-400">{user?.name}</span>
                 </span>
 
                 {/* Dropdown */}

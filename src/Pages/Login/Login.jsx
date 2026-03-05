@@ -36,34 +36,24 @@ const LoginSubmit = async (values) => {
   setLoading(true);
 
   try {
-    // dispatch login thunk
-      const resultAction = await dispatch(loginThunk({ email, password }));
-    // Save token to localStorage
-      localStorage.setItem("token", resultAction.payload.token);
+    // Use .unwrap() to throw if login fails
+    const result = await dispatch(loginThunk({ email, password })).unwrap();
 
-    // Fetch cart AFTER login
+    // Only runs if login was successful
+    localStorage.setItem("token", result.token);
     dispatch(fetchUserCart());
 
-    // toast
     toast.success("Login successful", {
-      style: {
-        background: "#4ade91",  // green background
-        color: "#000",           // text color
-        fontWeight: "600",
-      }
+      style: { background: "#66bb6a", color: "#000", fontWeight: "600" },
     });
-    
-    // Navigate after everything is ready
+
     navigate("/authUser");
   } catch (err) {
-      const message = err?.response?.data?.message || err.message || "Login failed";
-      toast.error(message, {
-          style: {
-            background: "#f87171", // red background for error
-            color: "#fff",          // white text
-            fontWeight: "600",
-          }
-        });
+    // This runs if login fails
+    const message = err?.message || err?.response?.data?.message || "Login failed";
+    toast.error(message, {
+      style: { background: "#f69990", color: "#fff", fontWeight: "600" },
+    });
   } finally {
     setLoading(false);
   }
