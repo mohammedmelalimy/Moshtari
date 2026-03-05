@@ -57,7 +57,13 @@ const LoginSubmit = async (values) => {
     navigate("/authUser");
   } catch (err) {
       const message = err?.response?.data?.message || err.message || "Login failed";
-      toast.error(message);
+      toast.error(message, {
+          style: {
+            background: "#f87171", // red background for error
+            color: "#fff",          // white text
+            fontWeight: "600",
+          }
+        });
   } finally {
     setLoading(false);
   }
