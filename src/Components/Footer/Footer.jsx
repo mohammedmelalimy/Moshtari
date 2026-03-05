@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="
       bg-white text-gray-800 border-t border-gray-300 
-      dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 
+      dark:bg-black dark:text-gray-300 dark:border-gray-700 
       transition-colors duration-300
     ">
       <div className="max-w-7xl mx-auto px-6 py-10">

@@ -30,7 +30,7 @@ const Details = () => {
 
   return (
     <div className="min-h-screen p-6 dark:bg-gray-900 dark:text-white">
-      <div className="container mx-auto bg-white dark:bg-gray-800 shadow-lg p-6 rounded-lg 
+      <div className="container mx-auto bg-white dark:bg-black shadow-lg p-6 rounded-lg 
           flex flex-col md:flex-row gap-6">
 
 

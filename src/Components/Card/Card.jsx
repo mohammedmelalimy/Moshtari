@@ -15,7 +15,7 @@ const Card = ({ product }) => {
   
   
   return (
-    <div className="relative border rounded-xl overflow-hidden shadow-md bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-transform transform hover:scale-105 hover:shadow-xl duration-300 group">
+    <div className="relative border rounded-xl overflow-hidden shadow-md bg-white dark:bg-black border-gray-200 dark:border-gray-700 transition-transform transform hover:scale-105 hover:shadow-xl duration-300 group">
       
       {/* Product Link */}
       <Link to={`/authUser/details/${product.id}`}>

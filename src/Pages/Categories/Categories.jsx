@@ -18,7 +18,7 @@ const Categories = () => {
   }
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100 dark:bg-gray-900 dark:text-white transition-colors">
+    <div className="min-h-screen p-6 bg-gray-100 dark:bg-black dark:text-white transition-colors">
 
       <h1 className="text-3xl font-bold mb-8 text-center text-green-700 dark:text-green-400">
         Our Categories
@@ -30,7 +30,7 @@ const Categories = () => {
           <div
             key={category._id}
             className="flex flex-col items-center gap-3 p-4 rounded-xl shadow-md bg-white hover:shadow-lg
-            dark:bg-gray-800 dark:hover:shadow-gray-700 transition-all duration-300 cursor-pointer"
+            dark:bg-black dark:hover:shadow-gray-700 transition-all duration-300 cursor-pointer"
           >
             <img
               src={category.image}

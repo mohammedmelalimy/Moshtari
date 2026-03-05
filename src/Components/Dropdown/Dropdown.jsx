@@ -46,7 +46,7 @@ const Dropdown = ({ setMenuOpen }) => {
       {/* Dropdown menu */}
       <div
         className={`absolute right-0 mt-3 z-20 w-72 rounded-xl shadow-xl border border-gray-300 dark:border-gray-600 
-        bg-white dark:bg-gray-800 overflow-hidden transform transition-all duration-200
+        bg-white dark:bg-black overflow-hidden transform transition-all duration-200
         ${open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
       >
         {/* PROFILE */}

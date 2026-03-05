@@ -24,7 +24,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-900 dark:text-white min-h-screen">
+    <div className="bg-gray-100 dark:bg-black dark:text-white min-h-screen">
 
       {/* Main Slider Section */}
       <div data-aos="fade-up" className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6 py-3 px-4 lg:px-10">

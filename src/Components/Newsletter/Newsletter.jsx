@@ -1,6 +1,6 @@
 export function Newsletter() {
   return (
-    <section className="py-20 bg-gray-900 text-white">
+    <section className="py-20 bg-black text-white">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto text-center space-y-6">
           

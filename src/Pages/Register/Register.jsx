@@ -79,7 +79,7 @@ const Register = () => {
   });
 
 return (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-10 px-4 transition-colors duration-300" data-aos="fade-right">
+  <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black py-10 px-4 transition-colors duration-300" data-aos="fade-right">
 
     {/* Success Message */}
     {isRegister && (

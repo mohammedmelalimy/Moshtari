@@ -51,7 +51,7 @@ const CategoriesSlider = () => {
   }
 
   return (
-    <div className="dark:bg-slate-900 py-8">
+    <div className="dark:bg-black py-8">
       <div className="container mx-auto">
         <Slider {...settings}>
           {data.data.data.map((category) => (

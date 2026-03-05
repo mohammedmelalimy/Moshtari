@@ -21,7 +21,7 @@ const Payment = () => {
   });
 
   return (
-    <div className="min-h-96 my-20 flex items-center justify-center dark:bg-slate-900 p-6 transition-colors duration-300">
+    <div className="min-h-96 my-20 flex items-center justify-center dark:bg-black p-6 transition-colors duration-300">
       <form
         onSubmit={paymentForm.handleSubmit}
         className="w-full max-w-md bg-white dark:bg-slate-800 shadow-2xl rounded-2xl p-8 space-y-6 transition-colors duration-300"

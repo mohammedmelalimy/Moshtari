@@ -24,7 +24,7 @@ export default function HomeSlider() {
   const slides = [Slide1, Slide2, Slide3, Slide4];
 
   return (
-    <div className="dark:bg-slate-900 py-6">
+    <div className="dark:bg-black py-6">
       <div className="container mx-auto">
         <Slider {...settings}>
           {slides.map((slide, index) => (

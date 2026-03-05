@@ -7,8 +7,7 @@ const Promo = () => {
       data-aos="fade-up"
       className="
         my-12 p-8 rounded-3xl overflow-hidden
-        bg-linear-to-br from-slate-100 to-slate-50 
-        dark:from-slate-800 dark:to-slate-900
+        bg-slate-50 dark:bg-black
         border border-slate-200 dark:border-slate-700
         shadow-xl flex flex-col md:flex-row items-center justify-between gap-10
       "
