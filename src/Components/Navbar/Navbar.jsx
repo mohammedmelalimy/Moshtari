@@ -23,7 +23,7 @@ const Navbar = () => {
       transition-colors duration-300
     "
     >
-      <div className="container mx-auto flex items-center justify-between py-4 px-4">
+      <div className=" mx-auto flex items-center justify-between py-4 px-4">
         {/* Left: Logo + Desktop Links */}
         <div className="flex items-center gap-10">
           {/* Logo */}
@@ -36,7 +36,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Links */}
-          {token && (
+          {/* {token && (
             <nav className="hidden md:flex gap-6 text-base font-medium">
               <NavLink
                 className="hover:text-green-600 dark:hover:text-green-400 transition"
@@ -63,7 +63,7 @@ const Navbar = () => {
                 Brands
               </NavLink>
             </nav>
-          )}
+          )} */}
         </div>
 
         {/* Right: Theme + Cart + Dropdown */}

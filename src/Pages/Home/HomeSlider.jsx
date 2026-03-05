@@ -33,7 +33,7 @@ export default function HomeSlider() {
                 <img
                   src={slide}
                   alt={`slide-${index + 1}`}
-                  className="w-full h-80 md:h-[450px] lg:h-[550px] object-cover"
+                  className="w-full h-80 md:h-112.5 lg:h-137.5 object-cover"
                 />
                 
               </div>

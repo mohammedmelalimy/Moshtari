@@ -1,14 +1,19 @@
 import { Outlet } from "react-router-dom"
 import Footer from "../Components/Footer/Footer"
 import Navbar from "../Components/Navbar/Navbar"
-
+import SideBar from "../Components/Sidebar/SideBar"
 const Auth = () => {
   return (
-    <div className="flex flex-col justify-between min-h-screen">
-      <Navbar/>
+    <>
+    <Navbar/>
+    <div className="flex justify-between w-full">
+      <SideBar/>
+      <main className="w-full md:w-5/6 ">
         <Outlet/>
-      <Footer/>
+      </main>
     </div>
+    <Footer/>
+    </>
   )
 }
 
