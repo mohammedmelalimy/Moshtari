@@ -1,4 +1,5 @@
 import { Circles } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -55,7 +56,7 @@ const CategoriesSlider = () => {
       <div className="container mx-auto">
         <Slider {...settings}>
           {data.data.data.map((category) => (
-            <div
+            <Link
               key={category._id}
               className="p-2 flex justify-center"
             >
@@ -69,7 +70,7 @@ const CategoriesSlider = () => {
                   {category.name}
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </Slider>
       </div>

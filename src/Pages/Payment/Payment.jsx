@@ -1,14 +1,20 @@
 import { useFormik } from "formik";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../../store/thunk/cart/clearCart";
-import { cashPayment } from "../../store/thunk/payment";
+import { cashPayment, onlinePayment } from "../../store/thunk/payment";
 
 const Payment = () => {
   const dispatch = useDispatch()
+  const [Cash,setCash] = useState(false);
+  
   const submitPayment = (values) => {
-    dispatch(cashPayment(values));
-    dispatch(clearCart());
-    
+    if(Cash){
+        dispatch(cashPayment(values));
+        dispatch(clearCart());
+    }else{
+      dispatch(onlinePayment(values));
+    };
   };
 
   const paymentForm = useFormik({
@@ -24,7 +30,7 @@ const Payment = () => {
     <div className="min-h-96 my-20 flex items-center justify-center dark:bg-black p-6 transition-colors duration-300">
       <form
         onSubmit={paymentForm.handleSubmit}
-        className="w-full max-w-md bg-white dark:bg-slate-800 shadow-2xl rounded-2xl p-8 space-y-6 transition-colors duration-300"
+        className="w-full max-w-md bg-white dark:bg-gray-900 shadow-2xl rounded-2xl p-8 space-y-6 transition-colors duration-300"
       >
         <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 text-center mb-6">
           Payment Information
@@ -94,12 +100,21 @@ const Payment = () => {
         </div>
 
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full py-3 bg-slate-700 dark:bg-slate-500 text-white font-semibold rounded-lg hover:bg-slate-600 dark:hover:bg-slate-400 transition-colors duration-300"
-        >
-          Submit Payment
-        </button>
+        <div className="flex items-center gap-5">
+          <button
+            onClick={()=>{setCash(true);console.log("from cash")}}
+            type="submit"
+            className="w-full py-3 bg-slate-700 dark:bg-slate-500 text-white font-semibold rounded-lg hover:bg-slate-600 dark:hover:bg-slate-400 transition-colors duration-300"
+          >
+            Cash Order
+          </button>
+          <button
+            type="submit"
+            className="w-full py-3 bg-red-700 dark:bg-red-700 text-white font-semibold rounded-lg hover:bg-slate-600 dark:hover:bg-slate-400 transition-colors duration-300"
+          >
+            Online Order
+          </button>
+        </div>
       </form>
     </div>
   );

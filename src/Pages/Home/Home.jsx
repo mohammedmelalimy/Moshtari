@@ -12,6 +12,7 @@ import CategoriesSlider from "./CategoriesSlider";
 import HomeSlider from "./HomeSlider";
 
 const Home = () => {
+
   const token = localStorage.getItem("token");
   const [Show,setShow]=useState(8);
   useEffect(() => {
@@ -27,7 +28,7 @@ const Home = () => {
     <div className="bg-gray-100 dark:bg-black dark:text-white min-h-screen ">
 
       {/* Main Slider Section */}
-      <div data-aos="fade-up" className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6 py-3 px-4 lg:px-10">
+      <div data-aos="fade-up" className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6">
         <div data-aos="zoom-in" className="flex-1 w-full lg:w-4/5">
           <HomeSlider />
         </div>
@@ -49,7 +50,7 @@ const Home = () => {
             {token ? "Our Products" : "Trending Products"}
           </h3>
         </div>
-        {token ? <Products show={Show} /> : <MainProducts show={Show} />}
+        {token ? <Products show={Show} /> : <MainProducts show={Show} />}        
         <div className="flex justify-center">
           {Show > 40 ? (
               <button
@@ -65,7 +66,7 @@ const Home = () => {
                 <ChevronsDown size={50} className="transition-transform duration-300 hover:translate-y-1"/>
               </button>
           )}
-        </div>
+          </div>
       </div>
       {/* Promo Section */}
       {!token ? (

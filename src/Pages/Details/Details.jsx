@@ -2,13 +2,42 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Circles } from "react-loader-spinner";
 import { useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Slider from "react-slick";
+import Card from "../../Components/Card/Card";
 import { addProductToCart } from "../../store/thunk/cart/addToCart";
-
 const Details = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   
+    const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: { slidesToShow: 5 },
+      },
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 4 },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 2 },
+      },
+    ],
+  };
   
   const getProductById = async () => {
     const res = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
@@ -26,7 +55,7 @@ const Details = () => {
   };
 
 
-  const { data: similarProducts } = useQuery({
+  const { data: similarProducts = [], } = useQuery({
     queryKey: ["similarProducts", data?.category?._id],
     queryFn: getSimilarProducts,
     enabled: !!data?.category?._id,
@@ -48,7 +77,7 @@ const Details = () => {
 
   return (
     <div className="min-h-screen p-6 dark:bg-black dark:text-white">
-      <div className="container mx-auto bg-white dark:bg-black shadow-lg p-6 rounded-lg flex flex-col md:flex-row gap-6">
+      <div className="container mx-auto bg-white dark:bg-black p-6 rounded-lg flex flex-col md:flex-row gap-6">
         <img
           src={data.images?.[0] || data.thumbnail}
           alt={data.title}
@@ -89,35 +118,17 @@ const Details = () => {
           </button>
         </div>
       </div>
-      {/* similar Products */}
-      <h1 className="text-white text-2xl font-bold mt-6">Similar Products</h1>
-        {similarProducts && similarProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-            {similarProducts.map((product) => (
-              <Link to={`/authUser/details/${product.id}`} key={product._id} className="bg-white dark:bg-black shadow-lg p-4 rounded-lg">
-                <img
-                  src={product.images?.[0] || product.thumbnail}
-                  alt={product.title}
-                  className="w-full h-48 object-cover rounded"
-                />
-                <h2 className="text-lg font-bold mt-2">{product.title}</h2>
-                <div className="flex items-center justify-between">
-                <div className="flex items-center ">
-                {[1, 2, 3, 4, 5].map((i) => (
-                <span key={i} className={`text-yellow-400 text-sm`}>
-                {product.ratingsAverage >= i ? '★' : '☆'}
-                </span>
+      <div className="container mx-auto mt-10">
+        <h2 className="text-4xl font-bold mb-8">Similar Products</h2>
+      </div>
+        {/* similar Products */}
+        {similarProducts.length > 0 ? (
+          <div className="grid grid-cols-1 container mx-auto gap-4">
+            <Slider {...settings}>
+                {similarProducts.map((product) => (
+                <Card key={product._id} product={product} />
                 ))}
-                {/* Rating number */}
-                <span className="text-gray-400 dark:text-gray-500 ml-1">{product.ratingsAverage}</span>
-                </div>
-                {/* Price */}
-                <span className="text-amber-400 dark:text-green-500 font-bold text-lg ml-2">
-                EGP {product.price}
-                </span>
-                </div>
-              </Link>
-            ))}
+            </Slider>
           </div>
         ) : (
           <p className="text-gray-500 dark:text-gray-400">No similar products found.</p>

@@ -2,6 +2,7 @@ import { Heart, Home, LayoutGrid, Menu, Moon, ShoppingBag, ShoppingBasket, Shopp
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { logout } from "../../store/slices/authSlice";
 import { toggleTheme } from "../../store/slices/themeSlice";
 import Dropdown from "../Dropdown/Dropdown";
 import Wishlist from "../Wishlist/Wishlist";
@@ -26,7 +27,7 @@ const Navbar = () => {
       border-b border-gray-300 dark:border-gray-700
     "
     >
-      <div className=" container mx-auto flex items-center justify-between py-4 px-4">
+      <div className=" container mx-auto flex items-center justify-between py-4 px-2">
         {/* Left: Logo + Desktop Links */}
         <div className="flex items-center gap-10">
           {/* Logo */}
@@ -37,9 +38,9 @@ const Navbar = () => {
             <ShoppingBasket size={36} />
             <p className="text-xl font-extrabold">Moshtari</p>
           </Link>
-          <div>
+          <div className="hidden lg:block">
               {token && (
-                <nav className="flex  text-black  font-medium  dark:text-white">
+                <nav className="flex text-black font-medium dark:text-white">
                       <NavLink
                         to="/authUser"
                         className="flex items-center gap-3 px-4 py-2 rounded-lg transition border-2 border-transparent hover:border-green-500">
@@ -90,17 +91,17 @@ const Navbar = () => {
                 >
                   <Heart className="w-6 h-6" />
 
-                  {wishItems?.data?.length > 0 && (
+                  {wishItems.length > 0 && (
                     <span
                       className="
                       absolute -top-2 -right-2
-                      bg-red-500 text-white text-xs font-bold
+                      bg-green-500 text-white text-xs font-bold
                       min-w-4.5 h-4.5
                       rounded-full flex items-center justify-center
                       px-1
                     "
                     >
-                      {wishItems.data.length}
+                      {wishItems.length}
                     </span>
                   )}
                 </button>
@@ -118,7 +119,7 @@ const Navbar = () => {
                     <span
                       className="
                       absolute -top-2 -right-2
-                      bg-red-500 text-white text-xs font-bold
+                      bg-green-600 text-white text-xs font-bold
                       min-w-4.5 h-4.5
                       rounded-full flex items-center justify-center
                       px-1
@@ -130,7 +131,7 @@ const Navbar = () => {
                 </Link>
 
                 {/* Welcome User */}
-                <span className="hidden md:block text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <span className="hidden lg:block text-sm font-semibold text-gray-700 dark:text-gray-300">
                   Welcome 🖐️, <span className="text-green-600 dark:text-green-400">{user?.name}</span>
                 </span>
 
@@ -163,7 +164,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <div
-            className="md:hidden cursor-pointer"
+            className="block lg:hidden cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <X size={26} /> : <Menu size={26} />}
@@ -171,67 +172,25 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div
-          className="
-          md:hidden px-4 py-3 space-y-3
-          bg-white dark:bg-gray-900
-          text-gray-900 dark:text-white
-          border-t border-gray-200 dark:border-gray-700
-        "
-        >
-          {token ? (
-            <>
-              <NavLink
-                className="block hover:text-green-500 transition"
-                to="/authUser"
-                onClick={() => setMenuOpen(false)}
-              >
-                Home
-              </NavLink>
-              <NavLink
-                className="block hover:text-green-500 transition"
-                to="/authUser/products"
-                onClick={() => setMenuOpen(false)}
-              >
-                Products
-              </NavLink>
-              <NavLink
-                className="block hover:text-green-500 transition"
-                to="/authUser/categories"
-                onClick={() => setMenuOpen(false)}
-              >
-                Categories
-              </NavLink>
-              <Link
-                className="block hover:text-green-500 transition"
-                to="/authUser/cart"
-                onClick={() => setMenuOpen(false)}
-              >
-                Cart
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                className="block hover:text-green-500 transition"
-                to="/login"
-                onClick={() => setMenuOpen(false)}
-              >
-                Login
-              </Link>
-              <Link
-                className="block hover:text-green-500 transition"
-                to="/register"
-                onClick={() => setMenuOpen(false)}
-              >
-                Register
-              </Link>
-            </>
-          )}
-        </div>
-      )}
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="block lg:hidden px-4 py-3 space-y-2 max-h-[calc(100vh-60px)] overflow-y-auto bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-t border-gray-200 dark:border-gray-700">
+            {token ? (
+              <>
+                <NavLink className="block px-2 py-1 hover:text-green-500 transition" to="/authUser" onClick={() => setMenuOpen(false)}>Home</NavLink>
+                <NavLink className="block px-2 py-1 hover:text-green-500 transition" to="/authUser/products" onClick={() => setMenuOpen(false)}>Products</NavLink>
+                <NavLink className="block px-2 py-1 hover:text-green-500 transition" to="/authUser/categories" onClick={() => setMenuOpen(false)}>Categories</NavLink>
+                <Link className="block px-2 py-1 hover:text-green-500 transition" to="/authUser/cart" onClick={() => setMenuOpen(false)}>Cart</Link>
+                <Link className="block px-2 py-1 text-red-700 hover:text-green-500 transition" to="/" onClick={() => {setMenuOpen(false); dispatch(logout())}}>Logout</Link>
+              </>
+            ) : (
+              <>
+                <Link className="block px-2 py-1 hover:text-green-500 transition" to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+                <Link className="block px-2 py-1 hover:text-green-500 transition" to="/register" onClick={() => setMenuOpen(false)}>Register</Link>
+              </>
+            )}
+          </div>
+        )}
     </div>
   );
 };

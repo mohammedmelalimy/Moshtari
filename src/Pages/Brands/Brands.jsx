@@ -1,8 +1,17 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { Circles } from "react-loader-spinner";
-import useAllCategories from "../../customHooks/useAllCategories";
 
 const Brands = () => {
-  const { isLoading, isError, error, data } = useAllCategories()
+  const getAllBrands = async () => {
+    const res = await axios.get("https://ecommerce.routemisr.com/api/v1/brands");
+    return res.data;
+  };
+
+  const { isLoading, isError, error, data } = useQuery({
+    queryKey: ["brands"],
+    queryFn: getAllBrands,
+  })
 
 
   if (isLoading) {
@@ -26,7 +35,7 @@ const Brands = () => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
 
-        {data.data.data.map((brand) => (
+        {data.data.map((brand) => (
           <div
             key={brand._id}
             className="flex flex-col items-center gap-3 p-4 rounded-xl shadow-md bg-white hover:shadow-lg

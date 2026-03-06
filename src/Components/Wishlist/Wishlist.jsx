@@ -1,16 +1,21 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { deleteFromWishlist } from "../../store/thunk/Wishlist";
 import { clearWishlist } from "../../store/slices/wishlistSlice";
+import { deleteFromWishlist } from "../../store/thunk/Wishlist";
+
 const Wishlist = ({ open, setOpen }) => {
-  const wishItems = useSelector((state) => state.wishlist.wishlist);
   const dispatch = useDispatch();
+
+  // ✅ Safe fallback to empty array
+  const wishItems = useSelector((state) => state.wishlist.wishlist) || [];
 
   return (
     <div>
+      {/* Overlay */}
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-30 transition-opacity"/>
+          className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-30 transition-opacity"
+        ></div>
       )}
 
       {/* Drawer */}
@@ -32,7 +37,7 @@ const Wishlist = ({ open, setOpen }) => {
         </div>
 
         {/* Empty state */}
-        {wishItems.data.length === 0 && (
+        {wishItems.length === 0 && (
           <div className="text-center mt-20">
             <p className="text-lg font-semibold text-gray-700 dark:text-gray-300">
               Your wishlist is empty
@@ -41,8 +46,9 @@ const Wishlist = ({ open, setOpen }) => {
         )}
 
         {/* Items */}
-        {wishItems.data.map((item,index) => (
-          <div key={item.id || index}
+        {wishItems.map((item) => (
+          <div
+            key={item._id} // <- use _id here
             className="flex items-center gap-4 mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition"
           >
             <img
@@ -51,15 +57,29 @@ const Wishlist = ({ open, setOpen }) => {
               className="w-16 h-16 object-cover rounded"
             />
             <div className="flex-1">
-              <h3 className="text-md font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+              <h3 className="text-md font-semibold text-gray-900 dark:text-white">
+                {item.title}
+              </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">${item.price}</p>
             </div>
-            {/* <button onClick={()=>dispatch(deleteFromWishlist(item.id))} className="text-red-500 hover:text-red-700 transition">
-              remove
-            </button> */}
+            <button
+              onClick={() => dispatch(deleteFromWishlist(item._id))}
+              className="text-red-500 hover:text-red-700 transition"
+            >
+              Remove
+            </button>
           </div>
         ))}
-        <button onClick={()=>dispatch(clearWishlist())} >clear</button>
+
+        {/* Clear wishlist button */}
+        {wishItems.length > 0 && (
+          <button
+            onClick={() => dispatch(clearWishlist())}
+            className="mt-4 w-full py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          >
+            Clear Wishlist
+          </button>
+        )}
       </div>
     </div>
   );

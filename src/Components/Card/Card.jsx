@@ -9,7 +9,6 @@ import { addToWishlist, fetchUserWishlist } from "../../store/thunk/Wishlist";
 const Card = ({ product }) => {
   const dispatch=useDispatch();
   const cartItems = useSelector((state) => state.cart.cart?.numberOfItems || 0);
-  const wishItems = useSelector((state) => state.wishlist.wishlist);
   useEffect(() => {
     // Fetch cart whenever number of items changes
     dispatch(fetchUserCart());
@@ -80,13 +79,12 @@ const Card = ({ product }) => {
         <button
           onClick={() => {
             dispatch(addToWishlist(product.id));
-            console.log("Added to wishlist:",wishItems );
             toast("Product added to wishlist");
           }}
           className="bg-pink-500 dark:bg-pink-500 text-white rounded-full w-10 h-10 flex items-center justify-center 
           hover:bg-pink-600 shadow-lg transform hover:scale-110 transition"
         >
-          <Heart className="w-6 h-6" />
+          <Heart className="w-6 h-6"/>
         </button>
 
       </div>

@@ -1,9 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addToWishlist, fetchUserWishlist } from "../thunk/Wishlist";
+import { addToWishlist, deleteFromWishlist, fetchUserWishlist } from "../thunk/Wishlist";
+
 const initialState = {
-  wishlist: {
-    data: [],
-  }, 
+  wishlist: [], // array of items
   loading: false,
   error: null,
 };
@@ -13,51 +12,59 @@ const wishlistSlice = createSlice({
   initialState,
   reducers: {
     clearWishlist: (state) => {
-      state.wishlist = {};
+      state.wishlist = [];
       state.error = null;
     },
   },
+
   extraReducers: (builder) => {
     builder
-      // fetchUserWishlist
+      // Fetch Wishlist
       .addCase(fetchUserWishlist.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchUserWishlist.fulfilled, (state, action) => {
         state.loading = false;
-        state.wishlist= action.payload;
+        state.wishlist = action.payload.data || []; // ensure array
       })
       .addCase(fetchUserWishlist.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch wishlist";
+        state.error = action.payload;
       })
 
+      // Add To Wishlist
       .addCase(addToWishlist.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(addToWishlist.fulfilled, (state, action) => {
         state.loading = false;
-        state.wishlist.data=action.payload.data;
+        // If API returns full list:
+        state.wishlist = [...state.wishlist, action.payload.data];
+        // state.wishlist.push(action.payload.data);
       })
       .addCase(addToWishlist.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to add product";
+        state.error = action.payload;
       })
-      // deleteFromWishlist
-      // .addCase(deleteFromWishlist.pending, (state) => {
-      //   state.loading = true;
-      //   state.error = null;
-      // })
-      // .addCase(deleteFromWishlist.fulfilled, (state, action) => {
-      //   state.loading = false;
-      //     state.wishlist = action.payload;
-      // })
-      // .addCase(deleteFromWishlist.rejected, (state, action) => {
-      //   state.loading = false;
-      //   state.error = action.payload || "Failed to delete product";
-      // });
+
+      // Delete From Wishlist
+      .addCase(deleteFromWishlist.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteFromWishlist.fulfilled, (state, action) => {
+        state.loading = false;
+        // If API returns full updated wishlist:
+        // state.wishlist = action.payload.data || state.wishlist;
+        // Or, if API returns productId only:
+        state.wishlist = state.wishlist.filter(item => item._id !== action.payload.productId);
+      })
+      .addCase(deleteFromWishlist.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
