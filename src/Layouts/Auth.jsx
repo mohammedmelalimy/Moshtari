@@ -1,16 +1,17 @@
-import { Outlet } from "react-router-dom"
-import Footer from "../Components/Footer/Footer"
-import Navbar from "../Components/Navbar/Navbar"
+import { Outlet } from 'react-router-dom';
+import Footer from '../components/Footer/Footer';
+import Navbar from '../components/Navbar/Navbar';
 const Auth = () => {
   return (
     <>
-    <Navbar/>
-      <main className="w-full">
-        <Outlet/>
-      </main>
-    <Footer/>
-    </>
-  )
-}
+      <Navbar />
 
-export default Auth
+      <main className="w-full">
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
+};
+
+export default Auth;

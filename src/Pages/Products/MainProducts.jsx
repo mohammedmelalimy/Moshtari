@@ -1,16 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { Circles } from "react-loader-spinner";
-import MainCard from "../../Components/Card/MainCard";
-const MainProducts = ({show}) => {
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { Circles } from 'react-loader-spinner';
+import MainCard from '../../components/Card/MainCard';
+const MainProducts = ({ show }) => {
   const fetchProducts = async () => {
-    const res = await axios.get("https://dummyjson.com/products");
+    const res = await axios.get('https://dummyjson.com/products');
     return res.data;
   };
 
-  const { data = [], isLoading, isError, error } = useQuery({
-    queryKey: ["mainProducts"],
-    queryFn: fetchProducts,
+  const {
+    data = [],
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ['mainProducts'],
+    queryFn: fetchProducts
   });
 
   if (isLoading) {
