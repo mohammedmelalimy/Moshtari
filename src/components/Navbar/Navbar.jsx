@@ -31,8 +31,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="sticky top-0 z-50 w-full bg-gray-100 dark:bg-black text-gray-900 dark:text-white transition-colors duration-300 border-b border-gray-300 dark:border-gray-700">
-        <div className=" flex items-center justify-around h-16 px-4">
+      <div className="sticky top-0 z-50 w-full bg-gray-100 dark:bg-black text-gray-900 dark:text-white transition-colors duration-300 border-b border-gray-300 dark:border-gray-700 py-1">
+        <div className=" flex items-center justify-between h-16 px-4">
           {/* Left: Logo + Desktop Links */}
           <div className="flex items-center gap-10">
             {/* Logo */}

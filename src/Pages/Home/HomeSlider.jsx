@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 export default function HomeSlider() {
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 800,
     slidesToShow: 1,
@@ -60,40 +60,52 @@ export default function HomeSlider() {
   ];
 
   return (
-    <div className="dark:bg-black py-6">
+    <div className="dark:bg-black ">
       <Slider {...settings}>
         {heroes.map((hero, index) => (
-          <div key={index} className="px-2">
-            <div className="relative w-full overflow-hidden rounded-xl shadow-lg">
-              {/* Background image */}
-              <img
-                src={hero.img}
-                alt={`hero-${index + 1}`}
-                className="w-full h-96 md:h-[500px] lg:h-[600px] object-cover"
-              />
+          <div key={index} className="relative w-full overflow-hidden">
+            {/* Background image */}
+            <img
+              src={hero.img}
+              alt={`hero-${index + 1}`}
+              className="w-full h-96 md:h-130 lg:h-150 object-cover"
+            />
 
-              {/* Overlay content */}
-              <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-center px-6">
-                <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-2">
-                  {hero.title}
-                </h2>
-                <h3 className="text-xl md:text-3xl text-gray-200 mb-4">{hero.subtitle}</h3>
-                <p className="text-gray-200 max-w-2xl mb-6">{hero.description}</p>
+            <div className="absolute inset-0 bg-black/40 flex flex-col gap-8 justify-start items-center text-center px-6 pt-24 md:pt-32 lg:pt-45">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-100 mb-2">
+                <span className="block mb-2">{hero.title}</span>
+                <span
+                  className="block bg-clip-text text-transparent 
+                bg-linear-to-r from-blue-500 via-indigo-500 to-purple-500 
+                dark:from-purple-400 dark:via-pink-500 dark:to-red-500 drop-shadow-md"
+                >
+                  {hero.subtitle}
+                </span>
+              </h2>
+              <p className="text-gray-200 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mb-6 mt-2 text-base sm:text-lg md:text-xl leading-relaxed md:leading-loose">
+                {hero.description}
+              </p>
 
-                <div className="flex gap-4">
-                  <Link
-                    to={hero.cta1.link}
-                    className="px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:scale-105 transition"
-                  >
-                    {hero.cta1.text}
-                  </Link>
-                  <Link
-                    to={hero.cta2.link}
-                    className="px-6 py-3 border border-gray-200 rounded-xl text-white hover:bg-white/20 transition"
-                  >
-                    {hero.cta2.text}
-                  </Link>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+                <Link
+                  to={hero.cta1.link}
+                  className="w-full sm:w-auto text-center px-5 py-3 sm:px-6 sm:py-4 
+                    rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 
+                    text-white font-semibold uppercase tracking-wide shadow-lg 
+                    hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
+                >
+                  {hero.cta1.text}
+                </Link>
+                <Link
+                  to={hero.cta2.link}
+                  className="w-full sm:w-auto text-center px-5 py-3 sm:px-6 sm:py-4 
+        rounded-2xl border border-gray-300 backdrop-blur bg-white/30 dark:bg-gray-800/30 
+        text-gray-800 dark:text-gray-200 hover:bg-white/70 dark:hover:bg-purple-600/80 
+        hover:text-white dark:hover:text-white shadow-md hover:shadow-lg 
+        transition-all duration-300 ease-in-out uppercase font-semibold tracking-wide"
+                >
+                  {hero.cta2.text}
+                </Link>
               </div>
             </div>
           </div>

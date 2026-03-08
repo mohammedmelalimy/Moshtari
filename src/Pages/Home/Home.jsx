@@ -35,12 +35,14 @@ const Home = () => {
       {/* Hero + Slider Section */}
       <div className="w-full">
         {/* Slider */}
-        <div className="mb-6">{/* <HomeSlider /> */}</div>
+        <div className="mb-6 ">
+          <HomeSlider />
+        </div>
 
         {/* Hero Section */}
-        <div className="px-6">
+        {/* <div>
           <Hero />
-        </div>
+        </div> */}
       </div>
 
       {/* Categories */}

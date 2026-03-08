@@ -48,19 +48,22 @@ function Hero() {
           pair of shoes — all in one place with amazing deals and fast delivery.
         </p>
 
-        <div className="flex flex-wrap gap-5 mt-10 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 mt-10 w-full max-w-md justify-center">
           {/* Shop Now Button */}
           <Link
             to="/authUser/products"
-            className={`
-      px-6 py-4 rounded-2xl
+            className="
+      w-full sm:w-auto
+      text-center
+      px-5 py-3 sm:px-6 sm:py-4
+      rounded-2xl
       bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600
       text-white font-semibold uppercase tracking-wide
       shadow-lg hover:scale-105 hover:shadow-xl
       transition-all duration-300 ease-in-out
       dark:from-purple-500 dark:via-pink-500 dark:to-red-500
       focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400
-    `}
+    "
           >
             Shop Now
           </Link>
@@ -68,17 +71,20 @@ function Hero() {
           {/* Show Categories Button */}
           <Link
             to="/authUser/categories"
-            className={`
-              px-6 py-4 rounded-2xl border border-gray-300
-              backdrop-blur bg-white/30 dark:bg-gray-800/30
-              text-gray-800 dark:text-gray-200
-              hover:bg-white/70 dark:hover:bg-purple-600/80
-              hover:text-white dark:hover:text-white
-              shadow-md hover:shadow-lg
-              transition-all duration-300 ease-in-out
-              uppercase font-semibold tracking-wide
-              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400
-            `}
+            className="
+                w-full sm:w-auto
+                text-center
+                px-5 py-3 sm:px-6 sm:py-4
+                rounded-2xl border border-gray-300
+                backdrop-blur bg-white/30 dark:bg-gray-800/30
+                text-gray-800 dark:text-gray-200
+                hover:bg-black dark:hover:bg-purple-600/80
+                hover:text-white
+                shadow-md hover:shadow-lg
+                transition-all duration-300 ease-in-out
+                uppercase font-semibold tracking-wide
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400
+              "
           >
             Show Categories
           </Link>
