@@ -1,15 +1,16 @@
-import { Circles } from "react-loader-spinner";
-import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
-import useAllCategories from "../../customHooks/useAllCategories";
+import { Circles } from 'react-loader-spinner';
+import { Link } from 'react-router-dom';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import useAllCategories from '../../customHooks/useAllCategories';
 
 const CategoriesSlider = () => {
   const { isLoading, isError, error, data } = useAllCategories();
 
   const settings = {
     dots: false,
+    adaptiveHeight: false,
     infinite: true,
     speed: 500,
     slidesToShow: 6,
@@ -20,21 +21,21 @@ const CategoriesSlider = () => {
     responsive: [
       {
         breakpoint: 1280,
-        settings: { slidesToShow: 5 },
+        settings: { slidesToShow: 5 }
       },
       {
         breakpoint: 1024,
-        settings: { slidesToShow: 4 },
+        settings: { slidesToShow: 4 }
       },
       {
         breakpoint: 768,
-        settings: { slidesToShow: 3 },
+        settings: { slidesToShow: 3 }
       },
       {
         breakpoint: 480,
-        settings: { slidesToShow: 2 },
-      },
-    ],
+        settings: { slidesToShow: 2 }
+      }
+    ]
   };
 
   if (isLoading) {
@@ -46,9 +47,7 @@ const CategoriesSlider = () => {
   }
 
   if (isError) {
-    return (
-      <div className="text-center text-red-500 py-10">{error.message}</div>
-    );
+    return <div className="text-center text-red-500 py-10">{error.message}</div>;
   }
 
   return (
@@ -56,10 +55,7 @@ const CategoriesSlider = () => {
       <div className="container mx-auto">
         <Slider {...settings}>
           {data.data.data.map((category) => (
-            <Link
-              key={category._id}
-              className="p-2 flex justify-center"
-            >
+            <Link key={category._id} className="p-2 flex justify-center">
               <div className="relative w-44 h-44 md:w-48 md:h-48 overflow-hidden rounded-xl shadow-lg hover:scale-105 transform transition duration-300 bg-gray-100 dark:bg-gray-800">
                 <img
                   src={category.image}

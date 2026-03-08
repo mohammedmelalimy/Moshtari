@@ -1,86 +1,112 @@
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
-import { ChevronsDown, ChevronsUp } from "lucide-react";
-import { Features } from "../../Components/Features/Features";
-import { Newsletter } from "../../Components/Newsletter/Newsletter";
-import Promo from "../../Components/Promo/Promo";
-import MainProducts from "../Products/MainProducts";
-import Products from "../Products/Products";
-import CategoriesSlider from "./CategoriesSlider";
-import HomeSlider from "./HomeSlider";
+import { ChevronsDown, ChevronsUp } from 'lucide-react';
+
+import { Features } from '../../Components/Features/Features';
+import { Newsletter } from '../../Components/Newsletter/Newsletter';
+import Promo from '../../Components/Promo/Promo';
+import MainProducts from '../Products/MainProducts';
+import Products from '../Products/Products';
+import CategoriesSlider from './CategoriesSlider';
+import HomeSlider from './HomeSlider';
+import Hero from './Hero';
 
 const Home = () => {
+  const token = localStorage.getItem('token');
+  const [show, setShow] = useState(8);
+  const [loading, setLoading] = useState(false);
 
-  const token = localStorage.getItem("token");
-  const [Show,setShow]=useState(8);
   useEffect(() => {
     AOS.init({
       duration: 900,
-      easing: "ease-in-out",
-      once: false,
-      offset: 120,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 120
     });
+
+    // Refresh positions after window load (images)
+    window.addEventListener('load', () => AOS.refresh());
   }, []);
 
   return (
-    <div className="bg-gray-100 dark:bg-black dark:text-white min-h-screen ">
+    <div className="bg-gray-100 dark:bg-black dark:text-white min-h-screen">
+      {/* Hero + Slider Section */}
+      <div className="w-full">
+        {/* Slider */}
+        <div className="mb-6">{/* <HomeSlider /> */}</div>
 
-      {/* Main Slider Section */}
-      <div data-aos="fade-up" className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6">
-        <div data-aos="zoom-in" className="flex-1 w-full lg:w-4/5">
-          <HomeSlider />
+        {/* Hero Section */}
+        <div className="px-6">
+          <Hero />
         </div>
       </div>
 
-      {/* Categories Slider */}
-      <div data-aos="fade-right" className="px-4 lg:px-10 py-3 container mx-auto">
-        <h3 className="text-3xl font-bold p-3">
-          {token ? "Our Categories" : null}
-        </h3> 
-        {token ? <CategoriesSlider /> : null}
-      </div>
-
-      {/* Products Section */}
-      <div data-aos="fade-up" className="px-4 lg:px-10 pb-10 container mx-auto">
-
-        <div className="flex justify-between">
-          <h3 className="text-3xl font-bold p-3">
-            {token ? "Our Products" : "Trending Products"}
+      {/* Categories */}
+      {token && (
+        <div className="px-6 md:px-24 py-6">
+          <h3 className="text-4xl font-extrabold mb-4" data-aos="fade-right">
+            Discover Our Categories
           </h3>
+          <CategoriesSlider />
         </div>
-        {token ? <Products show={Show} /> : <MainProducts show={Show} />}        
-        <div className="flex justify-center">
-          {Show > 40 ? (
+      )}
+
+      {/* Products */}
+      <div className="px-6 md:px-24 py-6">
+        <h3 className="text-4xl font-extrabold mb-4" data-aos="fade-up">
+          {token ? 'Our Products' : 'Trending Products'}
+        </h3>
+
+        {token ? (
+          <Products show={show} setLoading={setLoading} />
+        ) : (
+          <MainProducts show={show} setLoading={setLoading} />
+        )}
+
+        {/* Load More Button */}
+        {!loading && (
+          <div className="flex justify-center mt-4">
+            {show > 40 ? (
               <button
-              onClick={() => setShow(8)}
-              className="flex items-center gap-2 px-4 py-2 mb-4 transition-all hover:text-red-400">
+                onClick={() => setShow(8)}
+                className="flex items-center gap-2 px-4 py-2 transition-all hover:text-red-400"
+              >
                 <span className="text-lg font-semibold">Show Less</span>
-              <ChevronsUp size={50} className="transition-transform duration-300 hover:-translate-y-1"/>
+                <ChevronsUp
+                  size={40}
+                  className="transition-transform duration-300 hover:-translate-y-1"
+                />
               </button>
-              ) : (
-              <button onClick={() => setShow(Show + 8)}
-              className="flex items-center gap-2 px-4 py-2 mb-4 transition-all hover:text-green-500">
+            ) : (
+              <button
+                onClick={() => setShow(show + 8)}
+                className="flex items-center gap-2 px-4 py-2 transition-all hover:text-green-500"
+              >
                 <span className="text-lg font-semibold">Load More</span>
-                <ChevronsDown size={50} className="transition-transform duration-300 hover:translate-y-1"/>
+                <ChevronsDown
+                  size={40}
+                  className="transition-transform duration-300 hover:translate-y-1"
+                />
               </button>
-          )}
+            )}
           </div>
+        )}
       </div>
+
       {/* Promo Section */}
-      {!token ? (
-        <div data-aos="fade-up" className="px-4 lg:px-10 py-3 container mx-auto">
+      {!token && (
+        <div className="px-4 lg:px-10 py-6">
           <Promo />
         </div>
-      ) : null}
+      )}
 
-      {/* Features Section */}
+      {/* Features */}
       <Features />
-      
-      {/* NewsLetter Section */}
-      <Newsletter/>
 
+      {/* Newsletter */}
+      <Newsletter />
     </div>
   );
 };

@@ -1,22 +1,22 @@
-import { User } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../store/slices/authSlice";
+import { User } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../store/slices/authSlice';
 
 const Dropdown = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   const user = useSelector((state) => state.auth.user);
 
   const dropdownRef = useRef();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     dispatch(logout());
-    navigate("/");
+    navigate('/');
   };
 
   // Close dropdown on click outside
@@ -27,8 +27,8 @@ const Dropdown = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   if (!token) return null;
@@ -38,16 +38,24 @@ const Dropdown = () => {
       {/* Avatar Button */}
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="w-10 h-10 rounded-full bg-green-200 dark:bg-gray-700 flex items-center justify-center shadow hover:scale-105 transition-transform"
+        className={`
+          w-12 h-12 rounded-full
+          bg-linear-to-r from-blue-500 via-purple-500 to-pink-500
+          dark:bg-gray-700
+          flex items-center justify-center
+          shadow-md hover:shadow-xl
+          hover:scale-110 hover:rotate-3
+          transition-transform duration-300
+        `}
       >
-        <User className="w-6 h-6 text-gray-700 dark:text-gray-200" />
+        <User className="w-6 h-6 text-white dark:text-gray-200 drop-shadow" />
       </button>
 
       {/* Dropdown menu */}
       <div
         className={`absolute right-0 mt-3 z-20 w-72 rounded-xl shadow-xl border border-gray-300 dark:border-gray-600 
         bg-white dark:bg-black overflow-hidden transform transition-all duration-200
-        ${open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
+        ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
       >
         {/* PROFILE */}
         <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center gap-3">
@@ -64,17 +72,13 @@ const Dropdown = () => {
 
         {/* MENU ITEMS */}
         <ul className="text-sm text-gray-700 dark:text-gray-200">
-          {["Account", "Settings", "Privacy", "Notifications", "Help Center"].map(
-            (item) => (
-              <li key={item}>
-                <button
-                  className="w-full text-left px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
-                >
-                  {item}
-                </button>
-              </li>
-            )
-          )}
+          {['Account', 'Settings', 'Privacy', 'Notifications', 'Help Center'].map((item) => (
+            <li key={item}>
+              <button className="w-full text-left px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+                {item}
+              </button>
+            </li>
+          ))}
 
           <li className="border-t border-gray-300 dark:border-gray-600">
             <button
