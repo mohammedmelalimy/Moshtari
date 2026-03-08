@@ -4,9 +4,9 @@ import 'aos/dist/aos.css';
 
 import { ChevronsDown, ChevronsUp } from 'lucide-react';
 
-import { Features } from '../../Components/Features/Features';
-import { Newsletter } from '../../Components/Newsletter/Newsletter';
-import Promo from '../../Components/Promo/Promo';
+import { Features } from '../../components/Features/Features';
+import { Newsletter } from '../../components/Newsletter/Newsletter';
+import Promo from '../../components/Promo/Promo';
 import MainProducts from '../Products/MainProducts';
 import Products from '../Products/Products';
 import CategoriesSlider from './CategoriesSlider';

@@ -1,25 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { shuffle } from "lodash";
-import { Circles } from "react-loader-spinner";
-import { useLocation } from "react-router-dom";
-import Card from "../../Components/Card/Card";
-import Sidebar from "../../Components/Sidebar/Sidebar";
-const Products = ({show}) => {
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { shuffle } from 'lodash';
+import { Circles } from 'react-loader-spinner';
+import { useLocation } from 'react-router-dom';
+import Card from '../../components/Card/Card';
+import Sidebar from '../../components/Sidebar/SideBar.jsx';
+const Products = ({ show }) => {
   const location = useLocation();
   const fetchProducts = async () => {
-    const res = await axios.get("https://ecommerce.routemisr.com/api/v1/products");
+    const res = await axios.get('https://ecommerce.routemisr.com/api/v1/products');
     return res.data.data;
   };
 
-  const { data = [], isLoading, isError, error } = useQuery({
-    queryKey: ["products"],
+  const {
+    data = [],
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ['products'],
     queryFn: fetchProducts,
-    select: (data) => shuffle(data),
+    select: (data) => shuffle(data)
   });
 
   const displayedProducts = data.slice(0, show);
-  
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -34,9 +39,8 @@ const Products = ({show}) => {
 
   return (
     <div className="min-h-screen dark:bg-black dark:text-white flex flex-col md:flex-row gap-6 transition-colors">
-      
       {/* Sidebar */}
-      {location.pathname === "/authUser/products" && <Sidebar />}
+      {location.pathname === '/authUser/products' ? <Sidebar /> : null}
 
       {/* Products Grid */}
       <div className="flex-1 container mx-auto p-6">
