@@ -99,9 +99,9 @@ export default function HomeSlider() {
                 <Link
                   to={hero.cta2.link}
                   className="w-full sm:w-auto text-center px-5 py-3 sm:px-6 sm:py-4 
-        rounded-2xl border border-gray-300 backdrop-blur bg-white/30 dark:bg-gray-800/30 
+        rounded-2xl border border-gray-300 backdrop-blur bg-white dark:bg-gray-800/30 
         text-gray-800 dark:text-gray-200 hover:bg-white/70 dark:hover:bg-purple-600/80 
-        hover:text-white dark:hover:text-white shadow-md hover:shadow-lg 
+        hover:text-black dark:hover:text-white shadow-md hover:shadow-lg 
         transition-all duration-300 ease-in-out uppercase font-semibold tracking-wide"
                 >
                   {hero.cta2.text}

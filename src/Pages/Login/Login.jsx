@@ -1,75 +1,87 @@
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import { ColorRing } from "react-loader-spinner";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import * as yup from "yup";
-import { setToken } from "../../store/slices/authSlice";
-import { loginThunk } from "../../store/thunk/authentication";
-import { fetchUserCart } from "../../store/thunk/userCart";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { ColorRing } from 'react-loader-spinner';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { setToken } from '../../store/slices/authSlice';
+import { loginThunk } from '../../store/thunk/authentication';
+import { fetchUserCart } from '../../store/thunk/userCart';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-useEffect(() => {
-    const token = localStorage.getItem("token");
+  useEffect(() => {
+    const token = localStorage.getItem('token');
     if (token) {
       dispatch(setToken(token));
       dispatch(fetchUserCart());
-      navigate("/authUser");
+      navigate('/authUser');
     }
     AOS.init({
-    duration: 900,
-    easing: "ease-in-out",
-    once: true,
-    offset: 120,
-  });
-  }, [dispatch,navigate]);
-
-const LoginSubmit = async (values) => {
-  const { email, password } = values;
-  setLoading(true);
-
-  try {
-    // Use .unwrap() to throw if login fails
-    const result = await dispatch(loginThunk({ email, password })).unwrap();
-
-    // Only runs if login was successful
-    localStorage.setItem("token", result.token);
-    dispatch(fetchUserCart());
-
-    toast.success("Login successful", {
-      style: { background: "#66bb6a", color: "#000", fontWeight: "600" },
+      duration: 900,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 120
     });
+  }, [dispatch, navigate]);
 
-    navigate("/authUser");
-  } catch (err) {
-    // This runs if login fails
-    const message = err?.message || err?.response?.data?.message || "Login failed";
-    toast.error(message, {
-      style: { background: "#f69990", color: "#fff", fontWeight: "600" },
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+  const LoginSubmit = async (values) => {
+    const { email, password } = values;
+    setLoading(true);
+
+    try {
+      // Use .unwrap() to throw if login fails
+      const result = await dispatch(loginThunk({ email, password })).unwrap();
+
+      // Only runs if login was successful
+      localStorage.setItem('token', result.token);
+      dispatch(fetchUserCart());
+
+      toast.success('Login successful', {
+        style: {
+          background: '#fff',
+          color: '#000',
+          fontWeight: '600',
+          padding: '10px 16px',
+          borderRadius: '8px'
+        }
+      });
+
+      navigate('/authUser');
+    } catch (err) {
+      // This runs if login fails
+      const message = err?.message || err?.response?.data?.message || 'Login failed';
+      toast.error(message, {
+        style: { background: '#f69990', color: '#fff', fontWeight: '600' }
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loginForm = useFormik({
-    initialValues: { email: "", password: "" },
+    initialValues: { email: '', password: '' },
     validationSchema: yup.object({
-      email: yup.string().required("Email is required").email("Invalid email"),
-      password: yup.string().required("Password is required").min(6, "Password must be at least 6 chars"),
+      email: yup.string().required('Email is required').email('Invalid email'),
+      password: yup
+        .string()
+        .required('Password is required')
+        .min(6, 'Password must be at least 6 chars')
     }),
-    onSubmit: LoginSubmit,
+    onSubmit: LoginSubmit
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors duration-300" data-aos="fade-right">
+    <div
+      className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors duration-300"
+      data-aos="fade-right"
+    >
       <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-xl p-8 transition-colors duration-300">
         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-6">
           Login Now
@@ -126,7 +138,12 @@ const LoginSubmit = async (values) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-500 text-white py-2 rounded-xl disabled:opacity-50 transition-colors duration-300"
+            className="w-full flex items-center justify-center gap-2 
+              bg-purple-600 
+              hover:bg-purple-800 
+              dark:bg-purple-500 dark:hover:bg-purple-700 
+              text-white py-2 rounded-xl 
+              disabled:opacity-50 transition-colors duration-300"
           >
             {loading ? (
               <ColorRing
@@ -134,10 +151,10 @@ const LoginSubmit = async (values) => {
                 height="25"
                 width="25"
                 ariaLabel="loading"
-                colors={["#fff","#fff","#fff","#fff","#fff"]}
+                colors={['#fff', '#fff', '#fff', '#fff', '#fff']}
               />
             ) : (
-              "Login"
+              'Login'
             )}
           </button>
         </form>

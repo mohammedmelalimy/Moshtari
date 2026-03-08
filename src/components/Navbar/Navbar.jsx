@@ -161,14 +161,18 @@ const Navbar = () => {
               <div className="hidden md:flex gap-3 text-sm font-semibold">
                 <Link
                   to="/login"
-                  className="px-5 py-2 rounded-lg bg-green-500 text-white shadow hover:bg-green-600 transition"
+                  className="px-5 py-2 rounded-lg bg-linear-to-r from-purple-400 to-pink-500 
+                 text-white shadow font-semibold 
+                 hover:bg-pink-400 transition-all duration-300"
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="px-5 py-2 rounded-lg bg-green-500 text-white shadow hover:bg-green-600 transition"
+                  className="px-5 py-2 rounded-lg bg-linear-to-r from-purple-400 to-pink-500 
+                 text-white shadow font-semibold 
+                 hover:bg-purple-500 transition-all duration-300"
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 >
                   Register
