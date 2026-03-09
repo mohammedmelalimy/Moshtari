@@ -39,8 +39,8 @@ const Home = () => {
           <HomeSlider />
         </div>
 
-        {/* Hero Section */}
-        {/* <div>
+        {/* Hero Section
+        <div>
           <Hero />
         </div> */}
       </div>
@@ -48,7 +48,7 @@ const Home = () => {
       {/* Categories */}
       {token && (
         <div className="px-6 md:px-24 py-6">
-          <h3 className="text-4xl font-extrabold mb-4" data-aos="fade-right">
+          <h3 className="text-2xl md:text-4xl font-extrabold mb-4" data-aos="fade-right">
             Discover Our Categories
           </h3>
           <CategoriesSlider />
@@ -57,7 +57,7 @@ const Home = () => {
 
       {/* Products */}
       <div className="px-6 md:px-24 py-6">
-        <h3 className="text-4xl font-extrabold mb-4" data-aos="fade-up">
+        <h3 className="text-2xl md:text-4xl font-extrabold mb-4" data-aos="fade-up">
           {token ? 'Our Products' : 'Trending Products'}
         </h3>
 

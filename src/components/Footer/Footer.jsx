@@ -27,7 +27,7 @@ const Footer = () => {
           </Link>
 
           {/* Links */}
-          <ul className="flex flex-wrap items-center gap-8 text-lg font-semibold">
+          <ul className="flex flex-wrap items-center gap-4 md:gap-8 text-md md:text-lg font-semibold">
             {['About', 'Privacy Policy', 'Licensing', 'Contact'].map((item) => (
               <li key={item}>
                 <a
