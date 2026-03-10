@@ -16,7 +16,7 @@ const Dropdown = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     dispatch(logout());
-    navigate('/');
+    navigate('/login');
   };
 
   // Close dropdown on click outside

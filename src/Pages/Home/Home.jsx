@@ -38,26 +38,25 @@ const Home = () => {
         <div className="mb-6 ">
           <HomeSlider />
         </div>
-
-        {/* Hero Section
-        <div>
-          <Hero />
-        </div> */}
+        {/* Down Arrow  */}
+        <div className="relative flex justify-center">
+          <a href="#next-section" className="absolute bottom-10 animate-bounce">
+            <ChevronsDown size={60} className="text-purple-600 dark:text-purple-400" />
+          </a>
+        </div>
       </div>
 
       {/* Categories */}
       {token && (
-        <div className="px-6 md:px-24 py-6">
-          <h3 className="text-2xl md:text-4xl font-extrabold mb-4" data-aos="fade-right">
-            Discover Our Categories
-          </h3>
+        <div className="px-6 md:px-24 py-6" data-aos="fade-right">
+          <h3 className="text-2xl md:text-4xl font-extrabold mb-4">Discover Our Categories</h3>
           <CategoriesSlider />
         </div>
       )}
 
       {/* Products */}
-      <div className="px-6 md:px-24 py-6">
-        <h3 className="text-2xl md:text-4xl font-extrabold mb-4" data-aos="fade-up">
+      <div className="px-6 md:px-24 py-6" data-aos="fade-up" id="next-section">
+        <h3 className="text-2xl md:text-4xl font-extrabold mb-4">
           {token ? 'Our Products' : 'Trending Products'}
         </h3>
 

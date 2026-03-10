@@ -1,5 +1,3 @@
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { ColorRing } from 'react-loader-spinner';
@@ -23,12 +21,6 @@ const Login = () => {
       dispatch(fetchUserCart());
       navigate('/authUser');
     }
-    AOS.init({
-      duration: 900,
-      easing: 'ease-in-out',
-      once: true,
-      offset: 120
-    });
   }, [dispatch, navigate]);
 
   const LoginSubmit = async (values) => {
@@ -36,10 +28,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // Use .unwrap() to throw if login fails
       const result = await dispatch(loginThunk({ email, password })).unwrap();
-
-      // Only runs if login was successful
       localStorage.setItem('token', result.token);
       dispatch(fetchUserCart());
 
@@ -55,11 +44,8 @@ const Login = () => {
 
       navigate('/authUser');
     } catch (err) {
-      // This runs if login fails
       const message = err?.message || err?.response?.data?.message || 'Login failed';
-      toast.error(message, {
-        style: { background: '#f69990', color: '#fff', fontWeight: '600' }
-      });
+      toast.error(message, { style: { background: '#f69990', color: '#fff', fontWeight: '600' } });
     } finally {
       setLoading(false);
     }
@@ -78,16 +64,20 @@ const Login = () => {
   });
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-black transition-colors duration-300"
-      data-aos="fade-right"
-    >
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 shadow-lg rounded-xl p-8 transition-colors duration-300">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 text-center mb-6">
-          Login Now
-        </h2>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 dark:bg-black p-6">
+      {/* Welcome Section */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
+          Welcome back to Moshtari
+        </h1>
+        <h5 className="mt-2 text-gray-600 dark:text-gray-300 text-lg sm:text-xl">
+          A place where you can find your dreams and explore endless opportunities.
+        </h5>
+      </div>
 
-        <form onSubmit={loginForm.handleSubmit} className="space-y-5">
+      {/* Form Container */}
+      <div className="w-full max-w-2xl bg-white dark:bg-black shadow-xl rounded-3xl p-12 sm:p-16 border border-gray-200 dark:border-gray-700">
+        <form onSubmit={loginForm.handleSubmit} className="space-y-6">
           {/* Email */}
           <div className="relative">
             <input
@@ -97,12 +87,12 @@ const Login = () => {
               value={loginForm.values.email}
               onChange={loginForm.handleChange}
               onBlur={loginForm.handleBlur}
-              className="block w-full border-b-2 border-gray-300 dark:border-gray-600 py-2.5 px-0 text-sm bg-transparent text-gray-900 dark:text-gray-100 focus:outline-none focus:border-green-700 dark:focus:border-green-500 peer transition-colors duration-300"
+              className="peer block w-full border-b-2 border-gray-300 dark:border-gray-600 py-4 px-0 text-sm sm:text-base bg-transparent text-gray-900 dark:text-white focus:outline-none focus:border-purple-600 dark:focus:border-purple-400 transition-colors duration-300"
               placeholder=" "
             />
             <label
               htmlFor="email"
-              className="absolute left-0 top-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75"
+              className="absolute left-0 top-4 text-sm sm:text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75"
             >
               Email Address
             </label>
@@ -120,12 +110,12 @@ const Login = () => {
               value={loginForm.values.password}
               onChange={loginForm.handleChange}
               onBlur={loginForm.handleBlur}
-              className="block w-full border-b-2 border-gray-300 dark:border-gray-600 py-2.5 px-0 text-sm bg-transparent text-gray-900 dark:text-gray-100 focus:outline-none focus:border-green-700 dark:focus:border-green-500 peer transition-colors duration-300"
+              className="peer block w-full border-b-2 border-gray-300 dark:border-gray-600 py-4 px-0 text-sm sm:text-base bg-transparent text-gray-900 dark:text-white focus:outline-none focus:border-purple-600 dark:focus:border-purple-400 transition-colors duration-300"
               placeholder=" "
             />
             <label
               htmlFor="password"
-              className="absolute left-0 top-3 text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75"
+              className="absolute left-0 top-4 text-sm sm:text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-6 peer-focus:scale-75"
             >
               Password
             </label>
@@ -138,12 +128,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 
-              bg-purple-600 
-              hover:bg-purple-800 
-              dark:bg-purple-500 dark:hover:bg-purple-700 
-              text-white py-2 rounded-xl 
-              disabled:opacity-50 transition-colors duration-300"
+            className="w-full flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-800 text-white py-4 rounded-xl font-semibold disabled:opacity-50 transition-all duration-300 text-lg"
           >
             {loading ? (
               <ColorRing
@@ -158,6 +143,25 @@ const Login = () => {
             )}
           </button>
         </form>
+
+        {/* Footer Links */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Don't have an account?{' '}
+            <span
+              onClick={() => navigate('/register')}
+              className="text-purple-600 dark:text-purple-400 font-semibold cursor-pointer hover:underline"
+            >
+              Sign Up
+            </span>
+          </p>
+          {/* <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            Forgot your password?{' '}
+            <span className="text-purple-600 dark:text-purple-400 hover:underline cursor-pointer">
+              Reset
+            </span>
+          </p> */}
+        </div>
       </div>
     </div>
   );

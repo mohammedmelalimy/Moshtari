@@ -56,7 +56,7 @@ export default function HomeSlider() {
         {heroes.map((hero, index) => (
           <div
             key={index}
-            className="relative w-full overflow-hidden h-[65vh] md:min-h-screen bg-white dark:bg-black"
+            className="relative w-full overflow-hidden h-[65vh] md:h-[85vh] bg-white dark:bg-black"
           >
             <div className="absolute inset-0 flex flex-col gap-8 justify-start items-center text-center px-6 pt-24 md:pt-32 lg:pt-40">
               {/* Title + Subtitle */}
