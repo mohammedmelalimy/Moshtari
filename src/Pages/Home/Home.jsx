@@ -38,12 +38,6 @@ const Home = () => {
         <div className="mb-6 ">
           <HomeSlider />
         </div>
-        {/* Down Arrow  */}
-        <div className="relative flex justify-center">
-          <a href="#next-section" className="absolute bottom-10 animate-bounce">
-            <ChevronsDown size={60} className="text-purple-600 dark:text-purple-400" />
-          </a>
-        </div>
       </div>
 
       {/* Categories */}

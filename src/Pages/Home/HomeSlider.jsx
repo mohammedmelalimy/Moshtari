@@ -2,6 +2,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import { Link } from 'react-router-dom';
+import { ChevronsDown } from 'lucide-react';
 
 export default function HomeSlider() {
   const settings = {
@@ -33,78 +34,41 @@ export default function HomeSlider() {
       description: 'Find the newest electronics at unbeatable prices.',
       cta1: { text: 'Shop Electronics', link: '/authUser/products' },
       cta2: { text: 'See Deals', link: '/authUser/categories' }
-    },
-    {
-      title: 'Step Up Your Shoes Game',
-      subtitle: 'Sneakers • Boots • Casual',
-      description: 'Discover stylish footwear for every occasion.',
-      cta1: { text: 'Shop Shoes', link: '/authUser/products' },
-      cta2: { text: 'Browse Brands', link: '/authUser/brands' }
-    },
-    {
-      title: 'Trending Fashion Collections',
-      subtitle: 'Men • Women • Kids',
-      description: 'Explore seasonal collections with exclusive discounts.',
-      cta1: { text: 'Shop Fashion', link: '/authUser/products' },
-      cta2: { text: 'Browse Categories', link: '/authUser/categories' }
     }
+    // add more slides...
   ];
 
   return (
-    <div className="dark:bg-black">
+    <div className="relative dark:bg-black">
       <Slider {...settings}>
         {heroes.map((hero, index) => (
           <div
             key={index}
-            className="relative w-full overflow-hidden h-[65vh] md:h-[85vh] bg-white dark:bg-black"
+            className="relative w-full overflow-hidden h-[65vh] md:h-[85vh] bg-gray-100 dark:bg-black"
           >
-            <div className="absolute inset-0 flex flex-col gap-8 justify-start items-center text-center px-6 pt-24 md:pt-32 lg:pt-40">
-              {/* Title + Subtitle */}
-              <h2
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold 
-                text-gray-900 dark:text-gray-100 drop-shadow-xl leading-tight"
-              >
+            <div className="absolute inset-0 flex flex-col gap-8 justify-center items-center text-center px-6 md:pt-32 lg:pt-40">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 drop-shadow-xl leading-tight">
                 <span className="block mb-2">{hero.title}</span>
-
-                <span
-                  className="block bg-clip-text text-transparent 
-                  bg-linear-to-r from-blue-500 via-indigo-500 to-purple-600
-                  dark:from-purple-300 dark:via-pink-400 dark:to-red-400
-                  "
-                >
+                <span className="block bg-clip-text text-transparent bg-linear-to-r from-blue-500 via-indigo-500 to-purple-600 dark:from-purple-300 dark:via-pink-400 dark:to-red-400">
                   {hero.subtitle}
                 </span>
               </h2>
 
-              {/* Description */}
-              <p
-                className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 
-                text-base sm:text-lg md:text-xl leading-relaxed md:leading-loose 
-                text-gray-700 dark:text-gray-200 opacity-90"
-              >
+              <p className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl text-base sm:text-lg md:text-xl leading-relaxed md:leading-loose text-gray-700 dark:text-gray-200 opacity-90">
                 {hero.description}
               </p>
 
-              {/* Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center mb-5">
                 <Link
                   to={hero.cta1.link}
-                  className="w-full sm:w-auto text-center px-5 py-3 sm:px-6 sm:py-4
-                  rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600
-                  text-white font-semibold uppercase tracking-wide shadow-xl
-                  hover:scale-110 hover:shadow-2xl transition-all duration-300"
+                  className="w-full sm:w-auto text-center px-5 py-3 sm:px-6 sm:py-4 rounded-2xl bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-semibold uppercase tracking-wide shadow-xl hover:scale-110 hover:shadow-2xl transition-all duration-300"
                 >
                   {hero.cta1.text}
                 </Link>
 
                 <Link
                   to={hero.cta2.link}
-                  className="w-full sm:w-auto text-center px-5 py-3 sm:px-6 sm:py-4
-                  rounded-2xl border border-gray-300 dark:border-gray-600 bg-white/60
-                  dark:bg-gray-800/40 backdrop-blur 
-                  text-gray-900 dark:text-gray-200 hover:bg-white/90 dark:hover:bg-purple-600/70
-                  hover:text-black dark:hover:text-white shadow-lg hover:shadow-xl
-                  transition-all duration-300 uppercase font-semibold"
+                  className="w-full sm:w-auto text-center px-5 py-3 sm:px-6 sm:py-4 rounded-2xl border border-gray-300 dark:border-gray-600 bg-white/60 dark:bg-gray-800/40 backdrop-blur text-gray-900 dark:text-gray-200 hover:bg-white/90 dark:hover:bg-purple-600/70 hover:text-black dark:hover:text-white shadow-lg hover:shadow-xl transition-all duration-300 uppercase font-semibold"
                 >
                   {hero.cta2.text}
                 </Link>
@@ -113,6 +77,13 @@ export default function HomeSlider() {
           </div>
         ))}
       </Slider>
+
+      <a
+        href="#next-section"
+        className="absolute animate-bounce left-1/2 transform -translate-x-1/2 bottom-0 "
+      >
+        <ChevronsDown size={60} className="text-purple-600 dark:text-purple-400" />
+      </a>
     </div>
   );
 }

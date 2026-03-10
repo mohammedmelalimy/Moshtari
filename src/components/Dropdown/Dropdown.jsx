@@ -1,4 +1,3 @@
-import { User } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -48,7 +47,12 @@ const Dropdown = () => {
           transition-transform duration-300
         `}
       >
-        <User className="w-6 h-6 text-white dark:text-gray-200 drop-shadow" />
+        {/* <User className="w-6 h-6 text-white dark:text-gray-200 drop-shadow" /> */}
+        <img
+          className="w-10 h-10 rounded-full"
+          src={`https://ui-avatars.com/api/?name=${user.name}`}
+          alt="User avatar"
+        />
       </button>
 
       {/* Dropdown menu */}

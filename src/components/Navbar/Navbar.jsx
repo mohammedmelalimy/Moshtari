@@ -140,7 +140,7 @@ const Navbar = () => {
                 </span>
 
                 {/* Dropdown */}
-                <div className="hidden md:flex">
+                <div className="hidden lg:block ">
                   <Dropdown />
                 </div>
               </div>
