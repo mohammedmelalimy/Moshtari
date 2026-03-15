@@ -1,25 +1,12 @@
+import React from 'react';
 import { Heart } from 'lucide-react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { addProductToCart } from '../../store/thunk/cart/addToCart';
-import { fetchUserCart } from '../../store/thunk/userCart';
-import { addToWishlist, fetchUserWishlist } from '../../store/thunk/Wishlist';
 
-const Card = ({ product }) => {
-  const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.cart?.numberOfItems || 0);
-
-  useEffect(() => {
-    dispatch(fetchUserCart());
-  }, [dispatch, cartItems]);
-
+const Card = ({ product, onAddToCart, onAddToWishlist }) => {
   return (
     <div className="relative border rounded-xl overflow-hidden shadow-lg bg-white dark:bg-black border-gray-200 dark:border-gray-800 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 group">
       {/* Product Link */}
-      <Link
-        to={`/authUser/details/${product.id}`}
+      <a
+        href={`/authUser/details/${product.id}`}
         onClick={() => window.scrollTo(0, 0)}
         className="block h-full"
       >
@@ -66,31 +53,22 @@ const Card = ({ product }) => {
             </div>
           </div>
         </div>
-      </Link>
+      </a>
 
       {/* Add to Cart & Wishlist Buttons */}
       <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
         {/* Add To Cart */}
         <button
-          onClick={() => {
-            dispatch(addProductToCart(product.id));
-            dispatch(fetchUserWishlist());
-            toast.success('Product added to cart');
-          }}
-          className="bg-purple-600 dark:bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center 
-          hover:bg-purple-700 dark:hover:bg-purple-600 shadow-lg transform hover:scale-110 transition"
+          onClick={() => onAddToCart(product.id)}
+          className="bg-purple-600 dark:bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-purple-700 dark:hover:bg-purple-600 shadow-lg transform hover:scale-110 transition"
         >
           +
         </button>
 
         {/* Wishlist */}
         <button
-          onClick={() => {
-            dispatch(addToWishlist(product.id));
-            toast.info('Product added to wishlist');
-          }}
-          className="bg-pink-500 dark:bg-pink-600 text-white rounded-full w-10 h-10 flex items-center justify-center 
-          hover:bg-pink-600 dark:hover:bg-pink-500 shadow-lg transform hover:scale-110 transition"
+          onClick={() => onAddToWishlist(product.id)}
+          className="bg-pink-500 dark:bg-pink-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-pink-600 dark:hover:bg-pink-500 shadow-lg transform hover:scale-110 transition"
         >
           <Heart className="w-5 h-5" />
         </button>
@@ -99,4 +77,5 @@ const Card = ({ product }) => {
   );
 };
 
-export default Card;
+// Memoize Card to avoid unnecessary re-renders
+export default React.memo(Card);

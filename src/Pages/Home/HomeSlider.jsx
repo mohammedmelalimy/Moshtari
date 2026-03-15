@@ -44,15 +44,15 @@ export default function HomeSlider() {
         {heroes.map((hero, index) => (
           <div
             key={index}
-            className="relative w-full overflow-hidden h-[65vh] md:h-[85vh] bg-gray-100 dark:bg-black"
+            className="relative w-full overflow-hidden h-[75vh] md:h-[80vh] bg-gray-100 dark:bg-black"
           >
-            <div className="absolute inset-0 flex flex-col gap-8 justify-center items-center text-center px-6 md:pt-32 lg:pt-40">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 drop-shadow-xl leading-tight">
+            <div className="absolute inset-0 flex flex-col gap-8 justify-center items-center text-center px-6 pt-0 md:pt-32 lg:pt-40">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 drop-shadow-xl leading-tight">
                 <span className="block mb-2">{hero.title}</span>
                 <span className="block bg-clip-text text-transparent bg-linear-to-r from-blue-500 via-indigo-500 to-purple-600 dark:from-purple-300 dark:via-pink-400 dark:to-red-400">
                   {hero.subtitle}
                 </span>
-              </h2>
+              </h1>
 
               <p className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl text-base sm:text-lg md:text-xl leading-relaxed md:leading-loose text-gray-700 dark:text-gray-200 opacity-90">
                 {hero.description}
@@ -77,13 +77,6 @@ export default function HomeSlider() {
           </div>
         ))}
       </Slider>
-
-      <a
-        href="#next-section"
-        className="absolute animate-bounce left-1/2 transform -translate-x-1/2 bottom-0 "
-      >
-        <ChevronsDown size={60} className="text-purple-600 dark:text-purple-400" />
-      </a>
     </div>
   );
 }

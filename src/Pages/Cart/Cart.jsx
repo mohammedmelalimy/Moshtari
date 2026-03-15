@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { clearCart } from "../../store/thunk/cart/clearCart";
-import { deleteProduct } from "../../store/thunk/cart/deleteProduct";
-import { updateQuantity } from "../../store/thunk/cart/updateQuantity";
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { clearCart } from '../../store/thunk/cart/clearCart';
+import { deleteProduct } from '../../store/thunk/cart/deleteProduct';
+import { updateQuantity } from '../../store/thunk/cart/updateQuantity';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Cart = () => {
         </p>
         <Link
           to="/authUser/products"
-          className="px-6 py-3 bg-green-700 hover:bg-green-800 dark:bg-green-600 dark:hover:bg-green-500 text-white rounded-2xl transition-all duration-300 transform hover:scale-105"
+          className="px-6 py-3 bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white rounded-2xl transition-all duration-300 transform hover:scale-105"
         >
           Browse Products
         </Link>
@@ -29,145 +29,138 @@ const Cart = () => {
     );
   }
 
-return (
-  <div className="container mx-auto px-4 py-8 dark:bg-black flex flex-col gap-8">
+  return (
+    <div className="container mx-auto px-4 py-8 dark:bg-black flex flex-col gap-8">
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">Your Shopping Cart</h1>
 
-    <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-      Your Shopping Cart
-    </h1>
-
-    <div className="flex flex-col gap-8">
-
-      {/* Cart Items */}
-      <div className="overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-        <table className="min-w-full text-left text-gray-700 dark:text-gray-200">
-          <thead className="bg-gray-100 dark:bg-gray-800">
-            <tr>
-              <th className="p-4">Product</th>
-              <th className="p-4">Quantity</th>
-              <th className="p-4">Price</th>
-              <th className="p-4">Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {allProducts.map((product) => (
-              <tr
-                key={product._id}
-                className="bg-white dark:bg-gray-900 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
-              >
-                <td className="flex items-center gap-4 p-4">
-                  <img
-                    src={product.product.imageCover}
-                    alt={product.product.title}
-                    className="w-16 h-16 object-contain rounded-lg bg-gray-100 dark:bg-gray-800 p-1"
-                  />
-                  <span className="font-semibold">
-                    {product.product.title}
-                  </span>
-                </td>
-
-                <td className="p-4">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() =>
-                        dispatch(
-                          updateQuantity({
-                            productId: product.product._id,
-                            newCount: product.count - 1,
-                          })
-                        )
-                      }
-                      className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700"
-                    >
-                      -
-                    </button>
-
-                    <input
-                      type="text"
-                      value={product.count}
-                      readOnly
-                      className="w-12 text-center bg-transparent font-semibold"
-                    />
-
-                    <button
-                      onClick={() =>
-                        dispatch(
-                          updateQuantity({
-                            productId: product.product._id,
-                            newCount: product.count + 1,
-                          })
-                        )
-                      }
-                      className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700"
-                    >
-                      +
-                    </button>
-                  </div>
-                </td>
-
-                <td className="p-4 font-semibold text-green-600 dark:text-green-400">
-                  ${(product.price || 0) * (product.count || 0)}
-                </td>
-
-                <td className="p-4">
-                  <button
-                    onClick={() =>
-                      dispatch(deleteProduct(product.product._id))
-                    }
-                    className="text-red-600 dark:text-red-400 hover:underline"
-                  >
-                    Remove
-                  </button>
-                </td>
+      <div className="flex flex-col gap-8">
+        {/* Cart Items */}
+        <div className="overflow-x-auto rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+          <table className="min-w-full text-left text-gray-700 dark:text-gray-200">
+            <thead className="bg-gray-100 dark:bg-black">
+              <tr>
+                <th className="p-4">Product</th>
+                <th className="p-4">Quantity</th>
+                <th className="p-4">Price</th>
+                <th className="p-4">Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
 
-      {/* Order Summary / Invoice */}
-      <div className="w-full md:w-1/2 lg:w-1/3 self-end p-6 bg-white dark:bg-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <tbody>
+              {allProducts.map((product) => (
+                <tr
+                  key={product._id}
+                  className="bg-white dark:bg-black border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition"
+                >
+                  <td className="flex items-center gap-4 p-4">
+                    <img
+                      src={product.product.imageCover}
+                      alt={product.product.title}
+                      className="w-16 h-16 object-contain rounded-lg bg-gray-100 dark:bg-gray-800 p-1"
+                    />
+                    <span className="font-semibold text-gray-900 dark:text-gray-100">
+                      {product.product.title}
+                    </span>
+                  </td>
 
-        <h2 className="text-xl font-semibold mb-5 text-black dark:text-gray-100">
-          Order Summary
-        </h2>
+                  <td className="p-4">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            updateQuantity({
+                              productId: product.product._id,
+                              newCount: product.count - 1
+                            })
+                          )
+                        }
+                        className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700"
+                      >
+                        -
+                      </button>
 
-        <div className="flex flex-col gap-4">
-          <div className="flex justify-between border-b pb-2">
-            <span className="text-black dark:text-gray-100">Total Items</span>
-            <span className="font-semibold text-black dark:text-gray-100">{numOfCartItems}</span>
-          </div>
+                      <input
+                        type="text"
+                        value={product.count}
+                        readOnly
+                        className="w-12 text-center bg-transparent font-semibold text-gray-900 dark:text-gray-100"
+                      />
 
-          <div className="flex justify-between border-b pb-2">
-            <span className="text-black dark:text-gray-100">Total Price</span>
-            <span className="font-semibold text-green-600 dark:text-green-400">
-              ${totalPrice.toFixed(2)}
-            </span>
-          </div>
+                      <button
+                        onClick={() =>
+                          dispatch(
+                            updateQuantity({
+                              productId: product.product._id,
+                              newCount: product.count + 1
+                            })
+                          )
+                        }
+                        className="w-7 h-7 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-700"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+
+                  <td className="p-4 font-semibold text-green-500 dark:text-green-400">
+                    ${(product.price || 0) * (product.count || 0)}
+                  </td>
+
+                  <td className="p-4">
+                    <button
+                      onClick={() => dispatch(deleteProduct(product.product._id))}
+                      className="text-red-600 dark:text-red-400 hover:underline"
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        <div className="flex flex-col gap-3 mt-6">
-          <Link
-            to="/authUser/payment"
-            className="text-center p-3 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-xl"
-          >
-            Proceed to Payment
-          </Link>
+        {/* Order Summary / Invoice */}
+        <div className="w-full md:w-1/2 lg:w-1/3 self-end p-6 bg-white dark:bg-black rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+          <h2 className="text-xl font-semibold mb-5 text-gray-900 dark:text-gray-100">
+            Order Summary
+          </h2>
 
-          <button
-            onClick={() => dispatch(clearCart())}
-            className="text-center p-3 bg-red-700 hover:bg-red-800 text-white font-semibold rounded-xl"
-          >
-            Clear Cart
-          </button>
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between border-b pb-2">
+              <span className="text-gray-900 dark:text-gray-100">Total Items</span>
+              <span className="font-semibold text-gray-900 dark:text-gray-100">
+                {numOfCartItems}
+              </span>
+            </div>
+
+            <div className="flex justify-between border-b pb-2">
+              <span className="text-gray-900 dark:text-gray-100">Total Price</span>
+              <span className="font-semibold text-green-500 dark:text-green-400">
+                ${totalPrice.toFixed(2)}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 mt-6">
+            <Link
+              to="/authUser/payment"
+              className="text-center p-3 bg-purple-600 hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600 text-white font-semibold rounded-xl transition-transform transform hover:scale-105"
+            >
+              Proceed to Payment
+            </Link>
+
+            <button
+              onClick={() => dispatch(clearCart())}
+              className="text-center p-3 bg-red-700 hover:bg-red-800 text-white font-semibold rounded-xl transition-transform transform hover:scale-105"
+            >
+              Clear Cart
+            </button>
+          </div>
         </div>
-
       </div>
-
     </div>
-  </div>
-);
+  );
 };
 
 export default Cart;
