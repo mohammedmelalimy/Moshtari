@@ -32,7 +32,7 @@ const Footer = () => {
               <li key={item}>
                 <a
                   className="
-                  hover:text-green-600 dark:hover:text-green-400 
+                  hover:text-rose-500 dark:hover:text-rose-400
                   transition-colors duration-200 cursor-pointer
                 "
                 >

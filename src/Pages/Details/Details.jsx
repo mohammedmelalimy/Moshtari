@@ -6,6 +6,9 @@ import { useParams } from 'react-router-dom';
 import Slider from 'react-slick';
 import Card from '../../components/Card/Card';
 import { addProductToCart } from '../../store/thunk/cart/addToCart';
+import { useCallback } from 'react';
+import { fetchUserCart } from '../../store/thunk/userCart';
+import { toast } from 'react-toastify';
 const Details = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -38,6 +41,15 @@ const Details = () => {
       }
     ]
   };
+
+  const handleAddToCart = useCallback(
+    async (id) => {
+      dispatch(addProductToCart(id));
+      dispatch(fetchUserCart());
+      toast.success('Product added to cart');
+    },
+    [dispatch]
+  );
 
   const getProductById = async () => {
     const res = await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
@@ -107,7 +119,7 @@ const Details = () => {
             className="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg 
             hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 
             transition-all duration-300 shadow"
-            onClick={() => dispatch(addProductToCart(id))}
+            onClick={() => dispatch(handleAddToCart(id))}
           >
             Add to Cart
           </button>

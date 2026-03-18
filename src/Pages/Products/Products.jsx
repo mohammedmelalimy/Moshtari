@@ -58,7 +58,7 @@ const Products = ({ show }) => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Circles height="80" width="80" color="#4fa94d" />
+        <Circles height="80" width="80" color="#a94d8a" />
       </div>
     );
   }

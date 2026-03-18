@@ -39,7 +39,7 @@ const Home = () => {
           <HomeSlider />
           <a
             href="#next-section"
-            className="absolute animate-bounce left-1/2 transform -translate-x-1/2 top-[75%] md:top-[90%] text-gray-700 dark:text-gray-300 opacity-75 hover:opacity-100 transition-opacity duration-300 mb-4"
+            className="absolute animate-bounce [animation-duration:3s] left-1/2 transform -translate-x-1/2 top-[75%] md:top-[90%] text-gray-700 dark:text-gray-300 opacity-35 hover:opacity-100 transition-opacity duration-300 mb-4"
           >
             <ChevronsDown size={80} className="text-purple-600 dark:text-purple-400" />
           </a>

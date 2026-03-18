@@ -79,4 +79,4 @@ const Card = ({ product, onAddToCart, onAddToWishlist }) => {
 };
 
 // Memoize Card to avoid unnecessary re-renders
-export default React.memo(Card);
+export default Card;
