@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { ColorRing } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 const Register = () => {
@@ -34,6 +35,15 @@ const Register = () => {
       }
     } catch (err) {
       console.error('Registration error:', err);
+      toast.error(err.response?.data?.message || 'Registration failed. Please try again.', {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined
+      });
     } finally {
       setLoading(false);
     }

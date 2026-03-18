@@ -1,13 +1,14 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Card = ({ product, onAddToCart, onAddToWishlist }) => {
   return (
     <div className="relative border rounded-xl overflow-hidden shadow-lg bg-white dark:bg-black border-gray-200 dark:border-gray-800 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 group">
       {/* Product Link */}
-      <a
-        href={`/authUser/details/${product.id}`}
-        onClick={() => window.scrollTo(0, 0)}
+      <Link
+        to={`/authUser/details/${product.id}`}
+        // onClick={() => window.scrollTo(0, 0)}
         className="block h-full"
       >
         {/* Product Image */}
@@ -53,7 +54,7 @@ const Card = ({ product, onAddToCart, onAddToWishlist }) => {
             </div>
           </div>
         </div>
-      </a>
+      </Link>
 
       {/* Add to Cart & Wishlist Buttons */}
       <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
