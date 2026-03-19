@@ -11,6 +11,7 @@ import Products from './Pages/Products/Products';
 import Register from './Pages/Register/Register';
 import ProtectedRoute from '/src/components/Protected/ProtectedRoute';
 import Payment from './Pages/Payment/Payment';
+import AllOrders from './Pages/Orders/Orders';
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Payment />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: 'allorders',
+        element: (
+          <ProtectedRoute>
+            <AllOrders />
           </ProtectedRoute>
         )
       }
