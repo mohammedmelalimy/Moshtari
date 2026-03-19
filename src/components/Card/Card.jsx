@@ -61,7 +61,7 @@ const Card = ({ product, onAddToCart, onAddToWishlist }) => {
         {/* Add To Cart */}
         <button
           onClick={() => onAddToCart(product.id)}
-          className="bg-purple-600 dark:bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-purple-700 dark:hover:bg-purple-600 shadow-lg transform hover:scale-110 transition"
+          className="bg-purple-600 dark:bg-purple-500 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-purple-700 dark:hover:bg-purple-600 shadow-lg transform hover:scale-110 transition cursor-pointer"
         >
           +
         </button>
@@ -69,7 +69,7 @@ const Card = ({ product, onAddToCart, onAddToWishlist }) => {
         {/* Wishlist */}
         <button
           onClick={() => onAddToWishlist(product.id)}
-          className="bg-pink-500 dark:bg-pink-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-pink-600 dark:hover:bg-pink-500 shadow-lg transform hover:scale-110 transition"
+          className="bg-pink-500 dark:bg-pink-600 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-pink-600 dark:hover:bg-pink-500 shadow-lg transform hover:scale-110 transition cursor-pointer"
         >
           <Heart className="w-5 h-5" />
         </button>
