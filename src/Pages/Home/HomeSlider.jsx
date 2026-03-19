@@ -35,7 +35,6 @@ export default function HomeSlider() {
       cta1: { text: 'Shop Electronics', link: '/authUser/products' },
       cta2: { text: 'See Deals', link: '/authUser/categories' }
     }
-    // add more slides...
   ];
 
   return (
@@ -47,7 +46,7 @@ export default function HomeSlider() {
             className="relative w-full overflow-hidden h-[75vh] md:h-[80vh] bg-gray-100 dark:bg-black"
           >
             <div className="absolute inset-0 flex flex-col gap-8 justify-center items-center text-center px-6 pt-0 md:pt-32 lg:pt-40">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-gray-100 drop-shadow-xl leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-gray-900 dark:text-gray-100 drop-shadow-xl leading-tight">
                 <span className="block mb-2">{hero.title}</span>
                 <span className="block bg-clip-text text-transparent bg-linear-to-r from-blue-500 via-indigo-500 to-purple-600 dark:from-purple-300 dark:via-pink-400 dark:to-red-400">
                   {hero.subtitle}

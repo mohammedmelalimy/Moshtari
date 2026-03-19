@@ -68,27 +68,43 @@ const Home = () => {
 
         {/* Load More Button */}
         {!loading && (
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center mt-8">
             {show > 40 ? (
               <button
                 onClick={() => setShow(8)}
-                className="flex items-center gap-2 px-4 py-2 transition-all hover:text-red-400"
+                className="
+          group
+          flex items-center gap-3 px-6 py-3
+          rounded-xl border border-red-400/50
+          text-red-500 font-semibold
+          shadow-md shadow-red-300/20
+          transition-all duration-300
+          hover:bg-red-500 hover:text-white
+        "
               >
-                <span className="text-lg font-semibold">Show Less</span>
+                <span className="text-lg">Show Less</span>
                 <ChevronsUp
-                  size={40}
-                  className="transition-transform duration-300 hover:-translate-y-1"
+                  size={32}
+                  className="transition-transform duration-300 group-hover:-translate-y-1"
                 />
               </button>
             ) : (
               <button
                 onClick={() => setShow(show + 8)}
-                className="flex items-center gap-2 px-4 py-2 transition-all hover:text-green-500"
+                className="
+          group
+          flex items-center gap-3 px-6 py-3
+          rounded-xl border border-pink-400/50
+          text-pink-200 font-semibold
+          shadow-md shadow-green-300/20
+          transition-all duration-300
+          hover:bg-rose-500 hover:text-white
+        "
               >
-                <span className="text-lg font-semibold">Load More</span>
+                <span className="text-lg">Load More</span>
                 <ChevronsDown
-                  size={40}
-                  className="transition-transform duration-300 hover:translate-y-1"
+                  size={32}
+                  className="transition-transform duration-300 group-hover:translate-y-1"
                 />
               </button>
             )}

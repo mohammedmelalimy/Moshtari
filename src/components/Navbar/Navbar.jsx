@@ -37,13 +37,12 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 px-4">
           {/* Left Section: Logo + Desktop Links */}
           <div className="flex items-center gap-10">
-            {/* Logo */}
-            <Link
-              to={token ? '/authUser' : '/'}
-              className="flex items-center gap-3 font-extrabold text-2xl"
-            >
-              <ShoppingBasket size={36} className="text-blue-600 drop-shadow-md" />
-              <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-indigo-600 to-pink-500">
+            <Link to={token ? '/authUser' : '/'} className="flex items-center gap-2 select-none ">
+              <div className="w-6 h-6 flex items-center justify-center">
+                <ShoppingBasket size={20} className="text-slate-900 dark:text-white" />
+              </div>
+
+              <span className="text-[1.5rem] font-medium tracking-tight text-black dark:text-white">
                 Moshtari
               </span>
             </Link>
