@@ -2,19 +2,19 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { shuffle } from 'lodash';
 import { Circles } from 'react-loader-spinner';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import Card from '../../components/Card/Card';
-import Sidebar from '../../components/Sidebar/SideBar.jsx';
+// import Sidebar from '../../components/Sidebar/SideBar.jsx';
 import { addProductToCart } from '../../store/thunk/cart/addToCart';
 import { fetchUserCart } from '../../store/thunk/userCart';
 import { addToWishlist, fetchUserWishlist } from '../../store/thunk/Wishlist';
 
 const Products = ({ show }) => {
-  const location = useLocation();
+  // const location = useLocation();
   const dispatch = useDispatch();
 
   const fetchProducts = async () => {
@@ -57,7 +57,7 @@ const Products = ({ show }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
+      <div className="flex items-center justify-center py-40">
         <Circles height="80" width="80" color="#a94d8a" />
       </div>
     );
@@ -70,7 +70,7 @@ const Products = ({ show }) => {
   return (
     <div className="min-h-screen dark:bg-black dark:text-white flex flex-col md:flex-row gap-6 transition-colors">
       {/* Sidebar */}
-      {location.pathname === '/authUser/products' && <Sidebar />}
+      {/* {location.pathname === '/authUser/products' && <Sidebar />} */}
 
       {/* Products Grid */}
       <div className="flex-1 container mx-auto p-6">

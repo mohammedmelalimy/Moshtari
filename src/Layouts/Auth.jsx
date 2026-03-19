@@ -6,7 +6,7 @@ const Auth = () => {
     <>
       <Navbar />
 
-      <main className="w-full">
+      <main className="flex flex-col justify-between min-h-screen">
         <Outlet />
       </main>
       <Footer />
