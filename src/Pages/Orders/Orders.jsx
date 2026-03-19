@@ -25,7 +25,7 @@ const AllOrders = () => {
   return (
     <div className="container mx-auto p-6 min-h-screen">
       {/* Header with Home Button */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <h1 className="text-3xl font-bold text-slate-800 dark:text-white">Order History</h1>
 
         <button

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../../store/slices/authSlice';
 
 const Dropdown = () => {
@@ -25,7 +25,6 @@ const Dropdown = () => {
         setOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -38,18 +37,17 @@ const Dropdown = () => {
       <button
         onClick={() => setOpen((prev) => !prev)}
         className={`
-          w-12 h-12 rounded-full
-          bg-linear-to-r from-blue-500 via-purple-500 to-pink-500
-          dark:bg-gray-700
+          w-12 h-12 rounded-full 
+          bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500
           flex items-center justify-center
-          shadow-md hover:shadow-xl
-          hover:scale-110 hover:rotate-3
+          shadow-lg hover:shadow-2xl
+          transform hover:scale-110 hover:rotate-3
           transition-transform duration-300
+          ring-2 ring-transparent hover:ring-white/30 dark:hover:ring-gray-300/30
         `}
       >
-        {/* <User className="w-6 h-6 text-white dark:text-gray-200 drop-shadow" /> */}
         <img
-          className="w-10 h-10 rounded-full"
+          className="w-10 h-10 rounded-full border-2 border-white dark:border-gray-800"
           src={`https://ui-avatars.com/api/?name=${user.name}`}
           alt="User avatar"
         />
@@ -57,39 +55,51 @@ const Dropdown = () => {
 
       {/* Dropdown menu */}
       <div
-        className={`absolute right-0 mt-3 z-20 w-72 rounded-xl shadow-xl border border-gray-300 dark:border-gray-600 
-        bg-white dark:bg-black overflow-hidden transform transition-all duration-200
-        ${open ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+        className={`
+          absolute right-0 mt-3 z-20 w-72 rounded-xl shadow-xl border border-gray-300 dark:border-gray-600
+          bg-white dark:bg-gray-900 overflow-hidden transform transition-all duration-200
+          origin-top-right
+          ${open ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'}
+        `}
       >
         {/* PROFILE */}
-        <div className="p-4 bg-gray-100 dark:bg-gray-700 flex items-center gap-3">
+        <div className="p-4 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 flex items-center gap-3">
           <img
-            className="w-10 h-10 rounded-full"
+            className="w-12 h-12 rounded-full border-2 border-white dark:border-gray-700"
             src={`https://ui-avatars.com/api/?name=${user.name}`}
             alt="User avatar"
           />
-          <div>
+          <div className="flex flex-col">
             <h4 className="font-semibold text-gray-800 dark:text-white">{user.name}</h4>
-            <p className="text-sm text-gray-500 dark:text-gray-300">{user.email}</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
           </div>
         </div>
 
         {/* MENU ITEMS */}
         <ul className="text-sm text-gray-700 dark:text-gray-200">
-          {['Account', 'Settings', 'Privacy', 'Notifications', 'Help Center'].map((item) => (
-            <li key={item}>
-              <button className="w-full text-left px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-                {item}
-              </button>
-            </li>
-          ))}
-
+          <li>
+            <button
+              onClick={() => setOpen(false)}
+              className="w-full text-left px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition flex items-center gap-2"
+            >
+              👤 My Profile
+            </button>
+          </li>
+          <li>
+            <Link
+              to="/authUser/allorders"
+              onClick={() => setOpen(false)}
+              className="w-full text-left px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition flex items-center gap-2"
+            >
+              📦 Orders
+            </Link>
+          </li>
           <li className="border-t border-gray-300 dark:border-gray-600">
             <button
               onClick={handleLogout}
-              className="w-full px-4 py-3 text-left text-red-600 dark:text-red-400 font-bold hover:bg-red-100 dark:hover:bg-red-900/20 transition"
+              className="w-full px-4 py-3 text-left text-red-600 dark:text-red-400 font-bold hover:bg-red-100 dark:hover:bg-red-900/20 rounded transition flex items-center gap-2"
             >
-              Logout
+              🔓 Logout
             </button>
           </li>
         </ul>
