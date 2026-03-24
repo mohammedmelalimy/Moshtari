@@ -6,63 +6,64 @@ import 'slick-carousel/slick/slick.css';
 import useAllCategories from '../../customHooks/useAllCategories';
 
 const CategoriesSlider = () => {
+  // Fetch categories
   const { isLoading, isError, error, data } = useAllCategories();
+  const categories = data?.data?.data || [];
 
+  // Determine slides to show
+  const slidesToShow = categories.length === 1 ? 1 : 4;
+
+  // Slider settings
   const settings = {
     dots: false,
-    adaptiveHeight: false,
-    infinite: true,
+    infinite: categories.length > 1, // إذا فيه سلايد واحد، لا نعمل infinite
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
-    arrows: false,
-    autoplay: true,
+    arrows: categories.length > 1, // لو فيه سلايد واحد، نخفي الأسهم
+    autoplay: categories.length > 1,
     autoplaySpeed: 3000,
     responsive: [
-      {
-        breakpoint: 1280,
-        settings: { slidesToShow: 5 }
-      },
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 4 }
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 3 }
-      },
-      {
-        breakpoint: 480,
-        settings: { slidesToShow: 2 }
-      }
+      { breakpoint: 1280, settings: { slidesToShow: Math.min(slidesToShow, 4) } },
+      { breakpoint: 1024, settings: { slidesToShow: Math.min(slidesToShow, 3) } },
+      { breakpoint: 768, settings: { slidesToShow: Math.min(slidesToShow, 2) } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } }
     ]
   };
 
+  // Loading state
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
+      <div className="flex items-center justify-center py-20 animate-pulse">
         <Circles height="80" width="80" color="#4fa94d" />
       </div>
     );
   }
 
+  // Error state
   if (isError) {
     return <div className="text-center text-red-500 py-10">{error.message}</div>;
   }
 
+  // Render slider
   return (
-    <div className="dark:bg-black py-8">
-      <div className="container mx-auto">
+    <div className="dark:bg-black py-8 w-full">
+      <div className="container mx-auto w-full">
         <Slider {...settings}>
-          {data.data.data.map((category) => (
-            <Link key={category._id} className="p-2 flex justify-center">
-              <div className="relative w-44 h-44 md:w-48 md:h-48 overflow-hidden rounded-xl shadow-lg hover:scale-105 transform transition duration-300 bg-gray-100 dark:bg-gray-800">
+          {categories.map((category) => (
+            <Link
+              key={category._id}
+              to={`/category/${category._id}`}
+              aria-label={`Go to ${category.name} category`}
+              className="p-2 flex justify-center w-full"
+            >
+              <div className="relative w-full h-44 md:h-48 overflow-hidden rounded-xl shadow-lg transform transition duration-300 hover:scale-105">
                 <img
                   src={category.image}
                   alt={category.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-110"
                 />
-                <div className="absolute bottom-0 w-full bg-black bg-opacity-50 text-white text-center py-1 text-sm font-semibold">
+                <div className="absolute bottom-0 w-full bg-black/70 text-white text-center py-1 text-sm font-semibold opacity-0 hover:opacity-100 transition-opacity duration-300">
                   {category.name}
                 </div>
               </div>
