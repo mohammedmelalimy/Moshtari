@@ -6,7 +6,9 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <Navbar />
-      <Outlet />
+      <main className=" py-8">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );

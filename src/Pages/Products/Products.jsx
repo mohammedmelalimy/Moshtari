@@ -3,7 +3,7 @@ import axios from 'axios';
 import { shuffle } from 'lodash';
 import { Circles } from 'react-loader-spinner';
 // import { useLocation } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -14,6 +14,9 @@ import { fetchUserCart } from '../../store/thunk/userCart';
 import { addToWishlist, fetchUserWishlist } from '../../store/thunk/Wishlist';
 
 const Products = ({ show }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
   // const location = useLocation();
   const dispatch = useDispatch();
 

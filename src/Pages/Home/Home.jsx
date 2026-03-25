@@ -11,7 +11,6 @@ import MainProducts from '../Products/MainProducts';
 import Products from '../Products/Products';
 import CategoriesSlider from './CategoriesSlider';
 import HomeSlider from './HomeSlider';
-import Hero from './Hero';
 
 const Home = () => {
   const token = localStorage.getItem('token');
@@ -33,17 +32,10 @@ const Home = () => {
   return (
     <div className="bg-gray-100 dark:bg-black dark:text-white min-h-screen">
       {/* Hero + Slider Section */}
-      <div className="w-full">
-        {/* Slider */}
-        <div className="mb-6 ">
-          <HomeSlider />
-          <a
-            href="#next-section"
-            className="absolute animate-bounce [animation-duration:3s] left-1/2 transform -translate-x-1/2 top-[75%] md:top-[90%] text-gray-700 dark:text-gray-300 opacity-35 hover:opacity-100 transition-opacity duration-300 mb-4"
-          >
-            <ChevronsDown size={80} className="text-purple-600 dark:text-purple-400" />
-          </a>
-        </div>
+
+      {/* Slider */}
+      <div className="mb-6 ">
+        <HomeSlider />
       </div>
 
       {/* Categories */}

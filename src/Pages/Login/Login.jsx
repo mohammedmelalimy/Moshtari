@@ -102,7 +102,7 @@ const Login = () => {
                       loginForm.touched.email && loginForm.errors.email
                         ? 'border-red-400 focus:border-red-500'
                         : 'border-gray-300 focus:border-purple-600'
-                    } text-gray-900 placeholder-gray-400`}
+                    } text-gray-200 placeholder-gray-400`}
                   {...loginForm.getFieldProps('email')}
                 />
               </div>
@@ -134,7 +134,7 @@ const Login = () => {
                       loginForm.touched.password && loginForm.errors.password
                         ? 'border-red-400 focus:border-red-500'
                         : 'border-gray-300 focus:border-purple-600'
-                    } text-gray-900 placeholder-gray-400`}
+                    } text-gray-300 placeholder-gray-400`}
                   {...loginForm.getFieldProps('password')}
                 />
                 <button

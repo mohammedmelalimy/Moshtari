@@ -5,8 +5,7 @@ const Auth = () => {
   return (
     <>
       <Navbar />
-
-      <main className="flex flex-col justify-between min-h-screen">
+      <main className="flex flex-col justify-between min-h-screen pt-20">
         <Outlet />
       </main>
       <Footer />

@@ -1,9 +1,12 @@
 import { Circles } from 'react-loader-spinner';
 import useAllCategories from '../../customHooks/useAllCategories';
+import { useEffect } from 'react';
 
 const Categories = () => {
   const { isLoading, isError, error, data } = useAllCategories();
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">

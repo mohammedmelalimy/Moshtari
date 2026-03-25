@@ -8,7 +8,7 @@ import Card from '../../components/Card/Card';
 import { addProductToCart } from '../../store/thunk/cart/addToCart';
 import { fetchUserCart } from '../../store/thunk/userCart';
 import { toast } from 'react-toastify';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 const API = 'https://ecommerce.routemisr.com/api/v1';
 
@@ -19,7 +19,9 @@ const API = 'https://ecommerce.routemisr.com/api/v1';
 export default function Details() {
   const { id } = useParams();
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [id]);
   const handleAddToCart = useCallback(
     async (id) => {
       await dispatch(addProductToCart(id));
@@ -128,7 +130,7 @@ export default function Details() {
 
           <button
             className="px-6 py-2 bg-indigo-500 text-white font-semibold rounded-lg 
-                       hover:bg-indigo-700 transition-all shadow"
+                        hover:bg-indigo-700 transition-all shadow"
             onClick={() => handleAddToCart(id)}
           >
             Add to Cart
@@ -138,10 +140,9 @@ export default function Details() {
 
       {/* SIMILAR PRODUCTS */}
       <div className="container mx-auto mt-10">
-        <h2 className="text-4xl font-bold mb-8">Similar Products</h2>
-
         {similarProducts.length > 0 ? (
           <div className="relative px-12">
+            <h2 className="text-4xl font-bold mb-8">You May Also Like</h2>
             <Slider {...sliderSettings}>
               {similarProducts.map((p) => (
                 <div key={p._id} className="px-2">
@@ -151,7 +152,7 @@ export default function Details() {
             </Slider>
           </div>
         ) : (
-          <p className="text-gray-500 text-center">No similar products found.</p>
+          <p className="text-gray-500 text-center"></p>
         )}
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { Circles } from 'react-loader-spinner';
 
 const Brands = () => {
@@ -7,6 +8,9 @@ const Brands = () => {
     const res = await axios.get('https://ecommerce.routemisr.com/api/v1/brands');
     return res.data;
   };
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
 
   const { isLoading, isError, error, data } = useQuery({
     queryKey: ['brands'],

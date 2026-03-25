@@ -11,7 +11,7 @@ import {
   Tag,
   X
 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
 import { logout } from '../../store/slices/authSlice';
@@ -24,17 +24,41 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [renderWelcome, setRenderWelcome] = useState(false);
+
   const token = useSelector((state) => state.auth.token);
   const user = useSelector((state) => state.auth.user);
   const theme = useSelector((state) => state.theme.isDark);
   const cartItems = useSelector((state) => state.cart.cart);
   const wishItems = useSelector((state) => state.wishlist.wishlist);
 
+  useEffect(() => {
+    if (token && user) {
+      setRenderWelcome(true);
+      setShowWelcome(true);
+
+      const hideTimer = setTimeout(() => {
+        setShowWelcome(false); // يبدأ أنيميشن الاختفاء
+      }, 4000);
+
+      return () => clearTimeout(hideTimer);
+    }
+  }, [token, user]);
+
+  useEffect(() => {
+    if (!showWelcome && renderWelcome) {
+      const unmountTimer = setTimeout(() => {
+        setRenderWelcome(false);
+      }, 700); // نفس مدة الـ duration في الـ CSS
+      return () => clearTimeout(unmountTimer);
+    }
+  }, [showWelcome, renderWelcome]);
   return (
     <>
       {/* MAIN NAV */}
-      <div className="sticky top-0 z-50 w-full bg-white dark:bg-black text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300 py-1">
-        <div className="flex items-center justify-between h-16 px-4">
+      <div className="fixed top-0 left-0 z-50 opacity-85  w-full bg-white dark:bg-black text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300 py-2">
+        <div className="flex items-center justify-between h-16 px-4 container mx-auto">
           {/* Left Section: Logo + Desktop Links */}
           <div className="flex items-center gap-10">
             <Link to={token ? '/authUser' : '/'} className="flex items-center gap-2 select-none ">
@@ -108,7 +132,7 @@ const Navbar = () => {
                   <Heart className="w-6 h-6 text-blue-600 dark:text-indigo-400" />
 
                   {wishItems.length > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-pink-500 dark:bg-pink-300 text-white text-xs font-semibold rounded-full min-w-4.5 h-4.5 flex items-center justify-center px-1">
+                    <span className="absolute -top-2 -right-2 bg-indigo-400 dark:bg-indigo-200 text-white dark:text-black text-xs font-semibold rounded-full min-w-4.5 h-4.5 flex items-center justify-center px-1">
                       {wishItems.length}
                     </span>
                   )}
@@ -124,22 +148,27 @@ const Navbar = () => {
                   <ShoppingCart className="w-6 h-6 text-blue-600 dark:text-indigo-400" />
 
                   {cartItems?.numOfCartItems > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-indigo-400 dark:bg-indigo-200 text-black text-xs font-semibold rounded-full min-w-4.5 h-4.5 flex items-center justify-center px-1">
+                    <span className="absolute -top-2 -right-2 bg-indigo-400 dark:bg-indigo-200 text-white dark:text-black text-xs font-semibold rounded-full min-w-4.5 h-4.5 flex items-center justify-center px-1">
                       {cartItems.numOfCartItems}
                     </span>
                   )}
                 </Link>
-
-                {/* Welcome User */}
-                <span className="hidden lg:block text-sm font-semibold">
-                  Welcome 🖐️,
-                  <span className="ml-1 bg-linear-to-r from-blue-600 to-pink-500 text-transparent bg-clip-text">
-                    {user?.name}
-                  </span>
-                </span>
+                {renderWelcome && (
+                  <div
+                    className={`
+                  hidden xl:flex items-center gap-1.5 text-sm font-bold transition-all duration-700 ease-in-out
+                  ${showWelcome ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
+                `}
+                  >
+                    <span className="text-indigo-500 dark:text-yellow-400">Welcome,</span>
+                    <span className="dark:text-white truncate max-w-[100px]">
+                      {user?.name?.split(' ')[0]}
+                    </span>
+                  </div>
+                )}
 
                 {/* Dropdown */}
-                <div className="hidden lg:block ">
+                <div className="hidden lg:block cursor-pointer ">
                   <Dropdown />
                 </div>
               </div>

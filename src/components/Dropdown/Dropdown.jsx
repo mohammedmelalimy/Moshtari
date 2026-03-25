@@ -43,7 +43,7 @@ const Dropdown = () => {
           shadow-lg hover:shadow-2xl
           transform hover:scale-110 hover:rotate-3
           transition-transform duration-300
-          ring-2 ring-transparent hover:ring-white/30 dark:hover:ring-gray-300/30
+          ring-2 ring-transparent hover:ring-white/30 dark:hover:ring-gray-300/30 cursor-pointer
         `}
       >
         <img
@@ -63,7 +63,7 @@ const Dropdown = () => {
         `}
       >
         {/* PROFILE */}
-        <div className="p-4 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 flex items-center gap-3">
+        <div className="p-4 bg-gradient-to-r from-gray-100 to-gray-200 cursor-pointer dark:from-gray-800 dark:to-gray-900 flex items-center gap-3">
           <img
             className="w-12 h-12 rounded-full border-2 border-white dark:border-gray-700"
             src={`https://ui-avatars.com/api/?name=${user.name}`}
@@ -80,7 +80,7 @@ const Dropdown = () => {
           <li>
             <button
               onClick={() => setOpen(false)}
-              className="w-full text-left px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition flex items-center gap-2"
+              className="w-full text-left px-4 py-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition flex items-center gap-2"
             >
               👤 My Profile
             </button>
@@ -97,7 +97,7 @@ const Dropdown = () => {
           <li className="border-t border-gray-300 dark:border-gray-600">
             <button
               onClick={handleLogout}
-              className="w-full px-4 py-3 text-left text-red-600 dark:text-red-400 font-bold hover:bg-red-100 dark:hover:bg-red-900/20 rounded transition flex items-center gap-2"
+              className="w-full px-4 py-3 text-left text-red-600 dark:text-red-400 font-bold hover:bg-red-100 dark:hover:bg-red-900/20 rounded transition flex items-center gap-2 cursor-pointer"
             >
               🔓 Logout
             </button>

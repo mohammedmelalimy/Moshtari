@@ -43,7 +43,7 @@ export default function HomeSlider() {
         {heroes.map((hero, index) => (
           <div
             key={index}
-            className="relative w-full overflow-hidden h-[75vh] md:h-[80vh] bg-gray-100 dark:bg-black"
+            className="relative w-full overflow-hidden h-[60vh] md:h-[90vh] bg-gray-200 dark:bg-black"
           >
             <div className="absolute inset-0 flex flex-col gap-8 justify-center items-center text-center px-6 pt-0 md:pt-32 lg:pt-40">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-gray-900 dark:text-gray-100 drop-shadow-xl leading-tight">
